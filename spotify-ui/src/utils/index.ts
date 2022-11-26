@@ -1,5 +1,5 @@
 import safeParse from "./safeParse";
 
-export default {
+export {
   safeParse
 }

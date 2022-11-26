@@ -2,7 +2,9 @@
 const mockSpotifyBaseURL = 'http://localhost:8080';
 
 const authURL = `${mockSpotifyBaseURL}/auth`;
-
+const playbackURL = `${mockSpotifyBaseURL}/playback`
+export const CURRENT_PLAYBACK_STATE_URL =`${playbackURL}/current-state`
+export const GET_PLAYBACK_DEVICES = `${playbackURL}/device-list`
 export const LOGIN = `${authURL}/userLogin`;
 // * requires param refresh_token
 export const REFRESH_TOKEN = `${authURL}/refresh-token`;
