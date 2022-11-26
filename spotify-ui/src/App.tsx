@@ -1,20 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch } from 'react-redux';
+import { increment } from './store/slices/example';
+
 
 function App() {
-  const login = () => {
-    window.location.href = 'http://localhost:8080/auth/userlogin'
+  const dispatch = useDispatch();
+  const example = () => {
+    dispatch(increment());
   }
-
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p onClick={login}>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+    <div>
+      <header className="">
+        header
       </header>
+      <p onClick={example}>testing redux</p>;
     </div>
   );
 }
