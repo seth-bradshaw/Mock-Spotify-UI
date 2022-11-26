@@ -1,20 +1,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { increment } from './store/slices/example';
-
+import {loginWithSpotify, getPlaybackDevices} from './services'
+import SpotifyPlayback from './components/playback/SpotifyPlayback'
 
 function App() {
   const dispatch = useDispatch();
-  const example = () => {
-    dispatch(increment());
+  const cliks = () => {
+    getPlaybackDevices()
   }
   
   return (
     <div>
-      <header className="">
-        header
+      <header onClick={() => cliks()} className="">
+       device list baby
       </header>
-      <p onClick={example}>testing redux</p>;
+      <p onClick={() => loginWithSpotify()} className="text-7xl">testing redux</p>
+      <SpotifyPlayback/>
     </div>
   );
 }

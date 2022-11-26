@@ -1,5 +1,6 @@
-const safeParse = (json: string, defaultTo?: any) => {
+const safeParse = (json: string|null|undefined, defaultTo?: any) => {
   try {
+    /* @ts-ignore */
     const parsed = JSON.parse(json);
     return parsed;
   } catch (error) {
