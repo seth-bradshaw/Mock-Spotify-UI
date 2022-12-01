@@ -11,7 +11,8 @@ import {
   SKIP_NEXT,
   SKIP_PREVIOUS,
   CHANGE_VOLUME,
-  USER_QUEUE
+  USER_QUEUE,
+  SEARCH_URL
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 
@@ -198,4 +199,16 @@ export const getUserQueue = async () => {
     })
 
   return response;
+}
+
+export const searchQuery = async (fucku:string) => {
+  const headers = getAuthHeader()
+  const response = await axios.get(`${SEARCH_URL}?search=${fucku}`, { headers })
+  .then(res => {
+    console.log('res.data.tracks.items', res.data.tracks.items)
+     return res.data.tracks.items
+    })
+  .catch(err => console.log('error from search response', err))
+  console.log('response', response)
+  return response
 }
