@@ -15,3 +15,7 @@ export const GET_PLAYBACK_DEVICES = `${playbackURL}/device-list`
 export const TRANSFER_DEVICE = `${playbackURL}/transfer-device`
 export const PLAY_TRACK = `${playbackURL}/play-track`
 export const PAUSE_TRACK = `${playbackURL}/pause-track`
+export const SKIP_NEXT = `${playbackURL}/next`
+export const SKIP_PREVIOUS = `${playbackURL}/previous`
+export const CHANGE_VOLUME = `${playbackURL}/volume`
+export const USER_QUEUE = `${playbackURL}/queue`
