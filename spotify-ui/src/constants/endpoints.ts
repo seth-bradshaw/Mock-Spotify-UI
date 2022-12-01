@@ -19,3 +19,6 @@ export const SKIP_NEXT = `${playbackURL}/next`
 export const SKIP_PREVIOUS = `${playbackURL}/previous`
 export const CHANGE_VOLUME = `${playbackURL}/volume`
 export const USER_QUEUE = `${playbackURL}/queue`
+
+// * SEARCH ENDPOINTS
+export const SEARCH_URL = `${mockSpotifyBaseURL}/search/v1/query`
