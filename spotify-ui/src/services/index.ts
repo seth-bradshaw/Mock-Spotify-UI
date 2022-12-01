@@ -11,6 +11,7 @@ import {
   SKIP_NEXT,
   SKIP_PREVIOUS,
   CHANGE_VOLUME,
+  USER_QUEUE
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 
@@ -152,7 +153,7 @@ export const changeVolume = async ({ volume_percent, device_id }: {volume_percen
   const headers = getAuthHeader();
   const params = `?volume_percent=${volume_percent}${Boolean(device_id) ? `&device_id=${device_id}` : ''}`;
   const url = `${CHANGE_VOLUME}${params}`;
-
+  console.log('url volume', url)
   const response = await axios.post(url, {}, { headers }).then(({ data }) => {
     console.log('changed volume: ', { data, url })
     return data;
@@ -162,5 +163,39 @@ export const changeVolume = async ({ volume_percent, device_id }: {volume_percen
     return err
   })
   
+  return response;
+}
+
+export const addTrackToQueue = async ({ uri, device_id }: {uri: string; device_id?: string;}) => {
+  const headers = getAuthHeader();
+  const params = `?uri=${uri}${Boolean(device_id) ? `&device_id=${device_id}` : ''}`;
+  const url = `${USER_QUEUE}${params}`;
+
+  const response = await axios.post(url, {}, { headers })
+    .then(({ data }) => {
+      console.log('add to queue', { data, url });
+      return data;
+    })
+    .catch(err => {
+      console.log('err adding to queue', { err });
+      return err;
+    })
+
+  return response;
+}
+
+export const getUserQueue = async () => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${USER_QUEUE}`, { headers })
+    .then(({ data }) => {
+      console.log('add to queue', { data });
+      return data;
+    })
+    .catch(err => {
+      console.log('err adding to queue', { err });
+      return err;
+    })
+
   return response;
 }
