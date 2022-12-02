@@ -22,3 +22,9 @@ export const USER_QUEUE = `${playbackURL}/queue`
 
 // * SEARCH ENDPOINTS
 export const SEARCH_URL = `${mockSpotifyBaseURL}/search/v1/query`
+
+// * PROFILE ENDPOINTS
+export const PROFILE_URL = `${mockSpotifyBaseURL}/current_user`
+
+// * PLAYLIST ENDPOINTS
+export const PLAYLIST_URL = `${mockSpotifyBaseURL}/playlists`

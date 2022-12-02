@@ -57,7 +57,7 @@ export default function SpotifyPlayback() {
         _options: { getOAuthToken },
       },
     }: AnyObj) => {
-      getOAuthToken(() => playTrack({ device_id, tracks: [spotify_uri] }));
+      getOAuthToken(() => playTrack({ device_id, body: { tracks: [spotify_uri]} }));
     };
     play({
       playerInstance: player,

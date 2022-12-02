@@ -12,7 +12,9 @@ import {
   SKIP_PREVIOUS,
   CHANGE_VOLUME,
   USER_QUEUE,
-  SEARCH_URL
+  SEARCH_URL,
+  PROFILE_URL,
+  PLAYLIST_URL
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 
@@ -77,15 +79,14 @@ export const transferDevice = async (deviceId: string) => {
   return response;
 }
 
-export const playTrack = async ({ device_id, tracks}: { device_id?: string; tracks?: Array<string>;}) => {
+export const playTrack = async ({ device_id, body}: { device_id?: string; body?: any;}) => {
   const headers = getAuthHeader();
   const params = Boolean(device_id) ? `?device_id=${device_id}` : ''
-  const body = Boolean(tracks) ? { tracks } : {}
   const url = `${PLAY_TRACK + params}`;
   const response = await axios
     .post(url, body, { headers } )
     .then(({ data }) => {
-      console.log('played song', { data, device_id, tracks, url });
+      console.log('played song', { data, device_id, url });
       return data;
     })
     .catch(err => {
@@ -185,6 +186,23 @@ export const addTrackToQueue = async ({ uri, device_id }: {uri: string; device_i
   return response;
 }
 
+export const bulkAddItemsToQueue = async (items: any) => {
+  const headers = getAuthHeader();
+  const url = `${USER_QUEUE}/bulk`;
+
+  const response = await axios.post(url, { items }, { headers })
+    .then(({ data }) => {
+      console.log('add to queue', { data, url });
+      return data;
+    })
+    .catch(err => {
+      console.log('err adding to queue', { err });
+      return err;
+    })
+
+  return response;
+}
+
 export const getUserQueue = async () => {
   const headers = getAuthHeader();
 
@@ -211,4 +229,43 @@ export const searchQuery = async (fucku:string) => {
   .catch(err => console.log('error from search response', err))
   console.log('response', response)
   return response
+}
+
+export const getCurrentUserPlaylists = async () => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PROFILE_URL}/playlists`, { headers })
+    .then(res => {
+      console.log('current user playlists res', res);
+      return res.data;
+    })
+    .catch(err => console.log('error geting current user playlists', err))
+
+  return response;
+}
+
+export const getPlaylistImages = async (playlist_id: string) => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PLAYLIST_URL}/playlist/images?playlist_id=${playlist_id}`, { headers })
+    .then(res => {
+      console.log('playlist images res', res);
+      return res.data;
+    })
+    .catch(err => console.log('error geting playlist images', err))
+
+  return response;
+}
+
+export const getPlaylistItems = async (playlist_id: string) => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PLAYLIST_URL}/playlist/items?playlist_id=${playlist_id}`, { headers })
+    .then(res => {
+      console.log('playlist images res', res);
+      return res.data;
+    })
+    .catch(err => console.log('error geting playlist images', err))
+
+  return response;
 }
