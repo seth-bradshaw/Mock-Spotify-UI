@@ -1,6 +1,5 @@
 import React, {useState, useRef} from 'react'
-import { getCurrentUserPlaylists, searchQuery, bulkAddItemsToQueue, playTrack, getPlaylistItems } from '../../services'
-import { addTrackToQueue } from '../../services'
+import { getCurrentUserPlaylists, searchQuery, getPlaylistItems, addItemsToQueue } from '../../services'
 export default function SearchInput() {
     const [search, setSearch] = useState("")
     const [tracks, setTracks] = useState([])
@@ -22,19 +21,21 @@ export default function SearchInput() {
             }
         }, 919)
     }
-    const concatTracks = async (trackuri:string) => {
-        await addTrackToQueue({ uri:trackuri })
-    }
   
     const getPlaylists = async () => {
       const response = await getCurrentUserPlaylists();
       setPlaylists(response.items);
     }
 
+    const addToQueue = async (items: Array<string>) => await addItemsToQueue(items)
+
     const addPlaylistToQueue = async (id: string) => {
-      const tracks = await getPlaylistItems(id);
-      await bulkAddItemsToQueue(tracks.items);
-      // await playTrack({ body: { context_uri: uri } })
+      const { items = [] } = await getPlaylistItems(id);
+
+      await addToQueue(items.reduce((acc:any, { track }: any) => {
+        acc.push(track.uri);
+        return acc;
+      }, []));
     }
 
     const handleChange = (e:any) => {
@@ -59,7 +60,7 @@ export default function SearchInput() {
     </form>
     {
         tracks.map((track:any) => {
-          return <h1 onClick={() => concatTracks(track.uri)} key={track.id}>{track.name}</h1>
+          return <h1 onClick={() => addToQueue([track.uri])} key={track.id}>{track.name}</h1>
         })
     }
 

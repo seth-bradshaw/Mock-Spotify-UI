@@ -6,37 +6,36 @@ import {
   CURRENT_PLAYBACK_STATE_URL,
   GET_PLAYBACK_DEVICES,
   TRANSFER_DEVICE,
-  PLAY_TRACK,
-  PAUSE_TRACK,
   SKIP_NEXT,
   SKIP_PREVIOUS,
   CHANGE_VOLUME,
   USER_QUEUE,
   SEARCH_URL,
   PROFILE_URL,
-  PLAYLIST_URL
+  PLAYLIST_URL,
+  RESUME_PLAYER,
+  PAUSE_PLAYER
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
+import { safeParse } from "../utils";
 
 export const loginWithSpotify = () => {
   window.location.href = LOGIN;
 };
 
 export const refreshSpotifyToken = async () => {
-  const accessToken = JSON.parse(Cookies.get("spotify_access_token") ?? "");
+  const accessToken = safeParse(Cookies.get("spotify_access_token") ?? "");
   const refresh_token = accessToken?.refresh_token ?? "";
 
-  const response = await axios
+  // * api saves cookies to document for us
+  await axios
     .get(`${REFRESH_TOKEN}?refresh_token=${refresh_token}`, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Accept: "application/json",
       },
     })
-    .then(({ data }) => data)
-    .catch((err) => err);
-
-  return response;
+  
 };
 
 export const getCurrentPlaybackState = async (market: string = "US") => {
@@ -79,10 +78,10 @@ export const transferDevice = async (deviceId: string) => {
   return response;
 }
 
-export const playTrack = async ({ device_id, body}: { device_id?: string; body?: any;}) => {
+export const resumePlayer = async ({ device_id, body}: { device_id?: string; body?: any;}) => {
   const headers = getAuthHeader();
   const params = Boolean(device_id) ? `?device_id=${device_id}` : ''
-  const url = `${PLAY_TRACK + params}`;
+  const url = `${RESUME_PLAYER + params}`;
   const response = await axios
     .post(url, body, { headers } )
     .then(({ data }) => {
@@ -97,10 +96,10 @@ export const playTrack = async ({ device_id, body}: { device_id?: string; body?:
   return response;
 }
 
-export const pauseTrack = async (device_id?: string) => {
+export const pausePlayer = async (device_id?: string) => {
   const headers = getAuthHeader();
   const params = Boolean(device_id) ? `?device_id=${device_id}` : ''
-  const url = `${PAUSE_TRACK + params}`;
+  const url = `${PAUSE_PLAYER + params}`;
   const response = await axios
     .post(url, {}, { headers } )
     .then(({ data }) => {
@@ -168,27 +167,9 @@ export const changeVolume = async ({ volume_percent, device_id }: {volume_percen
   return response;
 }
 
-export const addTrackToQueue = async ({ uri, device_id }: {uri: string; device_id?: string;}) => {
+export const addItemsToQueue = async (items: Array<string>) => {
   const headers = getAuthHeader();
-  const params = `?uri=${uri}${Boolean(device_id) ? `&device_id=${device_id}` : ''}`;
-  const url = `${USER_QUEUE}${params}`;
-
-  const response = await axios.post(url, {}, { headers })
-    .then(({ data }) => {
-      console.log('add to queue', { data, url });
-      return data;
-    })
-    .catch(err => {
-      console.log('err adding to queue', { err });
-      return err;
-    })
-
-  return response;
-}
-
-export const bulkAddItemsToQueue = async (items: any) => {
-  const headers = getAuthHeader();
-  const url = `${USER_QUEUE}/bulk`;
+  const url = `${USER_QUEUE}`;
 
   const response = await axios.post(url, { items }, { headers })
     .then(({ data }) => {
