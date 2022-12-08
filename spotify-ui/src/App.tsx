@@ -3,13 +3,17 @@ import { loginWithSpotify, refreshSpotifyToken } from './services'
 import SpotifyPlayback from './components/playback/SpotifyPlayback'
 import SearchInput from './components/search/SearchInput';
 function App() {
-  
+
+  const refreshToken = async () => {
+    await refreshSpotifyToken();
+  }
+
   return (
     <div>
       <header className="">
       </header>
       <p onClick={() => loginWithSpotify()} className="text-7xl">Login</p>
-      <p onClick={async () => await refreshSpotifyToken()}>Refresh Token</p>
+      <p onClick={refreshToken}>Refresh Token</p>
       <SpotifyPlayback/>
       <SearchInput/>
     </div>

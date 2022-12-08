@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react'
-import { searchQuery } from '../../services'
-import { addTrackToQueue } from '../../services'
+import React, {useState, useRef} from 'react'
+import { getCurrentUserPlaylists, searchQuery, getPlaylistItems, addItemsToQueue } from '../../services'
 export default function SearchInput() {
     const [search, setSearch] = useState("")
     const [tracks, setTracks] = useState([])
+    const [playlists, setPlaylists] = useState([]);
     const searchRef = useRef()
 
     const maybeSearchResults = (current:string, ) => {
@@ -21,10 +21,22 @@ export default function SearchInput() {
             }
         }, 919)
     }
-    const concatTracks = async (trackuri:string) => {
-        await addTrackToQueue({ uri:trackuri })
+  
+    const getPlaylists = async () => {
+      const response = await getCurrentUserPlaylists();
+      setPlaylists(response.items);
     }
-   
+
+    const addToQueue = async (items: Array<string>) => await addItemsToQueue(items)
+
+    const addPlaylistToQueue = async (id: string) => {
+      const { items = [] } = await getPlaylistItems(id);
+
+      await addToQueue(items.reduce((acc:any, { track }: any) => {
+        acc.push(track.uri);
+        return acc;
+      }, []));
+    }
 
     const handleChange = (e:any) => {
         setSearch(e.target.value)
@@ -37,6 +49,7 @@ export default function SearchInput() {
     }
   return (
     <>
+    <button onClick={getPlaylists}>Get Playlists</button>
     <form onSubmit={onSubmit}>
     
     <input
@@ -47,7 +60,18 @@ export default function SearchInput() {
     </form>
     {
         tracks.map((track:any) => {
-          return <h1 onClick={() => concatTracks(track.uri)} key={track.id}>{track.name}</h1>
+          return <h1 onClick={() => addToQueue([track.uri])} key={track.id}>{track.name}</h1>
+        })
+    }
+
+    {
+        playlists.map((playlist:any) => {
+          return (
+            <div>
+              <img src={playlist.images[0].url} />
+              <h1 onClick={() => addPlaylistToQueue(playlist.id)} key={playlist.id}>{playlist.name}</h1>
+            </div>
+          )
         })
     }
     </>

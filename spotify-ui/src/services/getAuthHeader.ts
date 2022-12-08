@@ -6,7 +6,7 @@ const getAuthHeader = () => {
     const headers =  {
         "Content-Type": "application/x-www-form-urlencoded",
         Accept: "application/json",
-        'Authorization': `${parsedToken?.token_type} ${parsedToken?.access_token}`
+        'Authorization': `${process.env.REACT_APP_TOKEN_TYPE} ${parsedToken?.access_token}`
       }
   return headers
 }

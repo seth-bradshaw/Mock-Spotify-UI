@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import {
   transferDevice,
-  playTrack,
-  pauseTrack,
+  resumePlayer,
+  pausePlayer,
   skipToNext,
   skipToPrevious,
   changeVolume,
-  addTrackToQueue,
+  addItemsToQueue,
   getUserQueue
 } from "../../services";
 import Cookies from "js-cookie";
@@ -57,7 +57,7 @@ export default function SpotifyPlayback() {
         _options: { getOAuthToken },
       },
     }: AnyObj) => {
-      getOAuthToken(() => playTrack({ device_id, tracks: [spotify_uri] }));
+      getOAuthToken(() => resumePlayer({ device_id, body: { tracks: [spotify_uri]} }));
     };
     play({
       playerInstance: player,
@@ -71,7 +71,7 @@ export default function SpotifyPlayback() {
         _options: { getOAuthToken },
       },
     }: AnyObj) => {
-      getOAuthToken(() => pauseTrack(device_id));
+      getOAuthToken(() => pausePlayer(device_id));
     };
     pauseSong({
       playerInstance: player,
@@ -81,7 +81,7 @@ export default function SpotifyPlayback() {
 
   const adjustVolume = async (volume_percent: number) => await changeVolume({ volume_percent, device_id: deviceId });
 
-  const addToQueue = async (uri: string) => await addTrackToQueue({ uri })
+  const addToQueue = async (uri: string) => await addItemsToQueue([uri])
 
   const getQueue = async () => await getUserQueue();
 
