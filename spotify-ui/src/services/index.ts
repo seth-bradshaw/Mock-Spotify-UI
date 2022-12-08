@@ -250,3 +250,39 @@ export const getPlaylistItems = async (playlist_id: string) => {
 
   return response;
 }
+
+export const getCurrentUserProfile = async () => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PROFILE_URL}/profile`, { headers })
+    .then(res => {
+      console.log('profile respones', { res, headers });
+      return res.data;
+    })
+    .catch(err => {
+      console.log('error getting profile', { err });
+      return err
+    })
+
+  return response;
+}
+export enum TopItemsType {
+  Artists = 'artists',
+  Tracks = 'tracks'
+}
+// * type is enum: 'artists' or 'tracks'
+export const getCurrentUserTopItems = async (type: TopItemsType) => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PROFILE_URL}/profile/top?type=${type}`, { headers })
+    .then(res => {
+      console.log('profile respones top items', { res, headers });
+      return res.data;
+    })
+    .catch(err => {
+      console.log('error getting profile top items', { err });
+      return err
+    })
+
+  return response;
+}
