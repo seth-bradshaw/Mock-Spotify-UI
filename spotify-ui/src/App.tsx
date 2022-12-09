@@ -1,20 +1,15 @@
 import React from 'react';
-import { loginWithSpotify, refreshSpotifyToken } from './services'
-import SpotifyPlayback from './components/playback/SpotifyPlayback'
-import SearchInput from './components/search/SearchInput';
-function App() {
+import { Route, Routes } from 'react-router';
+import { Home, Landing } from './components/pages'; 
 
-  const refreshToken = async () => {
-    await refreshSpotifyToken();
-  }
+function App() {
 
   return (
     <div>
-      <header className="text-spotify-green-500">should be green</header>
-      <p onClick={() => loginWithSpotify()} className="text-7xl">Login</p>
-      <p onClick={refreshToken}>Refresh Token</p>
-      <SpotifyPlayback/>
-      <SearchInput/>
+      <Routes>
+        <Route path='' element={<Landing />} />
+        <Route path='home' element={<Home />} />
+      </Routes>
     </div>
   );
 }
