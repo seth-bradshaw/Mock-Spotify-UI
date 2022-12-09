@@ -10,8 +10,7 @@ function App() {
 
   return (
     <div>
-      <header className="">
-      </header>
+      <header className="text-spotify-green-500">should be green</header>
       <p onClick={() => loginWithSpotify()} className="text-7xl">Login</p>
       <p onClick={refreshToken}>Refresh Token</p>
       <SpotifyPlayback/>
