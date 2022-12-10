@@ -12,7 +12,7 @@ import {
 } from "../../services";
 import Cookies from "js-cookie";
 import { safeParse } from "../../utils";
-import initPlaybackSDK from "./tempFile";
+import initPlaybackSDK from "./initPlaybackSDK";
 
 type PlaybackEventCallback = {
   device_id: string;
@@ -139,6 +139,8 @@ export default function SpotifyPlayback() {
 
     // TODO move player init to another file returning player. Thinking we pass a map with key = evtListener, value call back. Or should we add evtListeners in useEffect?
   }, []);
+
+  
   return (
     <>
       {!deviceActive || !isReady ? (
