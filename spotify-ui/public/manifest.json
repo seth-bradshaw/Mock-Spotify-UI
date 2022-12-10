@@ -1,0 +1,15 @@
+{
+  "short_name": "mySpotify",
+  "name": "mySpotify myWay",
+  "icons": [
+    {
+      "src": "spotify_icon.svg",
+      "type": "image/svg",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
