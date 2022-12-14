@@ -12,7 +12,7 @@ import {
 } from "../../services";
 import Cookies from "js-cookie";
 import { safeParse } from "../../utils";
-import initPlaybackSDK from "./sdk/initPlaybackSDK";
+import initPlaybackSDK from "./sdk";
 
 type PlaybackEventCallback = {
   device_id: string;

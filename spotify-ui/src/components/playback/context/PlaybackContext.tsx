@@ -1,7 +1,7 @@
 import React, { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { safeParse } from "../../../utils";
 import Cookies from "js-cookie";
-import initPlaybackSDK from "../sdk/initPlaybackSDK";
+import initPlaybackSDK from "../sdk";
 import PlaybackSection from "../PlaybackSection";
 import { AnyObj, PlaybackEventCallback, PlayerState } from "./types";
 import { transferDevice } from "../../../services";
