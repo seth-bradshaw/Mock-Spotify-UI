@@ -2,7 +2,7 @@ import React, { createContext, PropsWithChildren, useEffect, useState } from "re
 import { safeParse } from "../../../utils";
 import Cookies from "js-cookie";
 import initPlaybackSDK from "../sdk/initPlaybackSDK";
-import PlaybackContainer from "../PlaybackSection";
+import PlaybackSection from "../PlaybackSection";
 import { AnyObj, PlaybackEventCallback, PlayerState } from "./types";
 import { transferDevice } from "../../../services";
 
@@ -62,7 +62,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
   console.log('rendering playback context')
   return (
     <PlaybackContext.Provider value={{ player, ready }}>
-      <PlaybackContainer>{children}</PlaybackContainer>
+      {children}
     </PlaybackContext.Provider>
   );
 }
