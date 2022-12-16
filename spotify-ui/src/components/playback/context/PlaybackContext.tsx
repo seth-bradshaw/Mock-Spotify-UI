@@ -44,13 +44,6 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
         }
       );
 
-      player.addListener("player_state_changed", (state: PlayerState) => {
-        console.log("state on change CONTEXT_PROVIDER", { state })
-        if (!state) {
-          setReady(false);
-        }
-      });
-
       player.connect().then((status: boolean) => console.log(`Status of connection ${status}`));
 
       // TODO update name
@@ -59,7 +52,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
         .then(() => console.log("Device name changed!"));
     });
   }, []);
-  console.log('rendering playback context')
+
   return (
     <PlaybackContext.Provider value={{ player, ready }}>
       {children}

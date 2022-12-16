@@ -1,8 +1,9 @@
-import React, { useState, ReactElement, useEffect } from 'react'
-import { resumePlayer } from '../../../services';
+import React, { useState, ReactElement, useEffect, useCallback } from 'react'
+import { pausePlayer, resumePlayer } from '../../../services';
 import { usePlaybackContext } from '../context';
 import { AnyObj, PlayerState } from '../context/types';
 import BaseControl from './BaseControl'
+import playerEventHandler from '../sdk/playerEventHandler';
 
 interface Props {
   
@@ -21,25 +22,21 @@ export default function TogglePlay({}: Props): ReactElement {
       _options: { getOAuthToken },
     },
   }: AnyObj) => {
-    getOAuthToken(() => resumePlayer({ body: { tracks: [spotify_uri]} }));
+    getOAuthToken(() => isPlaying ? pausePlayer() : resumePlayer({ body: { tracks: [spotify_uri]} }));
   }
   
   const maybeUpdateState = (state: PlayerState) => {
-    if (track !== state.track_window.current_track.uri) {
+    if (track !== state.track_window.current_track?.uri) {
       setTrack(state.track_window.current_track.uri)
     }
-
+    
     if (isPlaying !== !state.paused) {
       setIsPlaying(!state.paused);
     }
-    player.removeListener("player_state_changed", maybeUpdateState);
   }
 
   useEffect(() => {
-    if (!player) {
-      return;
-    }
-    player.addListener("player_state_changed", maybeUpdateState);
+    playerEventHandler(player, "player_state_changed", 'toggle-play', maybeUpdateState);
   }, [player, track, isPlaying])
 
   return (
