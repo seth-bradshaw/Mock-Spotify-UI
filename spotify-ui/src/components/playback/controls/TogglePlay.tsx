@@ -3,6 +3,7 @@ import { pausePlayer, resumePlayer } from '../../../services';
 import { usePlaybackContext } from '../context';
 import { AnyObj, PlayerState } from '../context/types';
 import BaseControl from './BaseControl'
+import PlayIcon from '../../common/PlayIcon';
 import playerEventHandler from '../sdk/playerEventHandler';
 
 interface Props {
@@ -26,6 +27,7 @@ export default function TogglePlay({}: Props): ReactElement {
   }
   
   const maybeUpdateState = (state: PlayerState) => {
+    console.log('state changed', state)
     if (track !== state.track_window.current_track?.uri) {
       setTrack(state.track_window.current_track.uri)
     }
@@ -40,8 +42,8 @@ export default function TogglePlay({}: Props): ReactElement {
   }, [player, track, isPlaying])
 
   return (
-    <BaseControl>
-      <button onClick={() => handleClick({ playerInstance: player, spotify_uri: track})}>{isPlaying ? 'Pause' : 'Play'}</button>
+    <BaseControl clickHandler={() => handleClick({ playerInstance: player, spotify_uri: track})} className="bg-white">
+      <PlayIcon isPlaying={isPlaying} />
     </BaseControl>
   )
 }

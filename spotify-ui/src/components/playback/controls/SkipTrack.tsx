@@ -5,9 +5,5 @@ interface Props {
 }
 
 export default function SkipTrack({ className }: Props): ReactElement {
-  return (
-    <div className={className}>
-      &gt;&gt;
-    </div>
-  )
+  return (<i className={`fa-solid fa-forward text-spotify-gray-300 fa-xl ${className}`}></i>);
 }

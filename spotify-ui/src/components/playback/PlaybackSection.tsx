@@ -9,7 +9,7 @@ interface Props {
 
 export default function PlaybackSection({}: Props): ReactElement {
   return (
-    <div className="bg-spotify-gray-800 w-full h-40 text-spotify-gray-200 flex">
+    <div className="bg-spotify-gray-800 w-full h-24 text-spotify-gray-200 flex">
       <DetailsWrapper />
       <ControlsWrapper />
       <UtilitiesWrapper />
