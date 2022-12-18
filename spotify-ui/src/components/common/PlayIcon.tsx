@@ -5,6 +5,6 @@ interface IconProps {
   className?: string;
 }
 
-const PlayIcon = ({ isPlaying, className }: IconProps): ReactElement => <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play pl-[1px]'} text-spotify-gray-800 ${className}`}></i>;
+const PlayIcon = ({ isPlaying, className }: IconProps): ReactElement => <i className={`fa-solid fa-${isPlaying ? 'pause pl-[3px] pr-1' : 'play pl-0.5'} text-spotify-gray-800 ${className}`}></i>;
 
 export default PlayIcon;
