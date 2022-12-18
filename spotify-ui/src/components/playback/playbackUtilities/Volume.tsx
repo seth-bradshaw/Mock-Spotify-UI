@@ -1,73 +1,51 @@
-import React, { FormEvent, ReactElement, useEffect, useState } from 'react'
-import { clearInterval } from 'timers';
-import { changeVolume } from '../../../services';
-import BaseSlider from '../../common/BaseSlider'
-import { usePlaybackContext } from '../context'
-import VolumeIcon from './VolumeIcon'
+import React, { FormEvent, ReactElement, useEffect, useState } from "react";
+import BufferVolumeService from "./BufferVolumeService";
+import BaseSlider from "../../common/BaseSlider";
+import { usePlaybackContext } from "../context";
+import VolumeIcon from "./VolumeIcon";
 
-interface Props {
-  
-}
-// TODO polish this. Needs to fetch right away if released quickly
-let timeout: null | NodeJS.Timeout = null;
-const buffer: Array<number> = [];
-function initializeGentleVolume () {
-  return (vol: number) => {
-    buffer.push(vol)
-    console.log('timeout', { timeout})
-    if (timeout !== null) {
-      console.log('clearing timeout')
-      clearTimeout(timeout)
-    }
-    if (timeout && buffer.length >= 10) {
-      console.log('calling service, stopping timeouts')
-        changeVolume({volume_percent: buffer.pop() ?? vol });
-        buffer.splice(0, buffer.length)
-        timeout = null;
-    } else {
-      timeout = setTimeout(() => {
-        console.log('calling timeout', buffer)
-        changeVolume({volume_percent: buffer.pop() ?? vol });
-        buffer.splice(0, buffer.length)
-        timeout = null;
-      }, 500)
-    }
-  }
-}
+const BufferVolumeChange = new BufferVolumeService();
 
-// class BufferVolume
-// time
-// stack
-// initBuffer
-// 
-//
-// clearBuffer
-
+interface Props {}
 
 export default function Volume({}: Props): ReactElement {
   const [volume, setVolume] = useState<number>(50);
   const { player } = usePlaybackContext();
-  const bufferVolumeUpdate = initializeGentleVolume();
 
   useEffect(() => {
     if (!player) {
       return;
     }
+
     player.getVolume().then((vol: number) => {
       setVolume(vol * 100);
     });
-  }, [player])
+  }, [player]);
 
-  const updateVolume = (e:FormEvent) => {
+  const updateVolume = (e: FormEvent) => {
     const volume_percent = +(e.target as HTMLInputElement).value;
     setVolume(volume_percent);
-    bufferVolumeUpdate(volume_percent)
-  }
+    BufferVolumeChange.interceptEvent({ type: e.type, volume_percent });
+  };
+
+  const muteVolume = () => {
+    // * spotify web API or SDK don't support mute, so we need to manually do it
+    BufferVolumeChange.callUpdateVolume(0);
+    setVolume(0);
+
+    const slider = document.querySelector("#volume-slider") as HTMLInputElement;
+    slider.style.background = `linear-gradient(to right, #A7A7A7 0%, #A7A7A7 100%)`;
+    slider.value = "0";
+  };
 
   return (
-    <div className="flex gap-3 items-center">
-      <VolumeIcon volume={volume} />
-      <BaseSlider defaultValue={volume} id={'volume-slider'} handleChange={updateVolume}/>
+    <div className="flex gap-2 items-center">
+      <VolumeIcon volume={volume} muteVolume={muteVolume} />
+      <BaseSlider
+        defaultValue={volume}
+        id={"volume-slider"}
+        handleChange={updateVolume}
+      />
     </div>
-  )
+  );
 }
