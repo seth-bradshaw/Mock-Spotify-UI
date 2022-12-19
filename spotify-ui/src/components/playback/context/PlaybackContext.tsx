@@ -2,8 +2,7 @@ import React, { createContext, PropsWithChildren, useEffect, useState } from "re
 import { safeParse } from "../../../utils";
 import Cookies from "js-cookie";
 import initPlaybackSDK from "../sdk";
-import PlaybackSection from "../PlaybackSection";
-import { AnyObj, PlaybackEventCallback, PlayerState } from "./types";
+import { AnyObj, PlaybackEventCallback } from "./types";
 import { transferDevice } from "../../../services";
 
 export const PlaybackContext = createContext({});
