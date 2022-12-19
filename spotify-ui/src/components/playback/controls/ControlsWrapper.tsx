@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { skipToNext, skipToPrevious } from '../../../services'
-import BaseSlider from '../../common/BaseSlider'
 import BaseControl from './BaseControl'
+import PlaybackBar from './PlaybackBar'
 import SkipTrack from './SkipTrack'
 import TogglePlay from './TogglePlay'
 
@@ -11,8 +11,8 @@ interface Props {
 
 export default function ControlsWrapper({}: Props): ReactElement {
   return (
-    <div className="basis-3/5 flex flex-col items-center justify-center">
-      <div className="flex gap-4">
+    <div className="basis-full md:basis-2/5 flex flex-col items-center justify-center">
+      <div className="flex nowrap gap-4 mb-2">
         <BaseControl clickHandler={() => skipToPrevious()}>
           <SkipTrack className="scale-x-[-1]" />
         </BaseControl>
@@ -21,7 +21,7 @@ export default function ControlsWrapper({}: Props): ReactElement {
           <SkipTrack />
         </BaseControl>
       </div>
-      {/* <BaseSlider defaultValue={0} handleChange={(e) => console.log((e.target as HTMLInputElement).value)}/> */}
+      <PlaybackBar />
     </div>
   )
 }

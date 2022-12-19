@@ -30,7 +30,7 @@ export default function Queue({}: Props): ReactElement {
 
   return (
     <BaseControl clickHandler={clickHandler} className={color}>
-      <i className="fa-solid fa-layer-group fa-lg"></i>
+      <i className="fa-solid fa-layer-group fa-lg hover:text-white"></i>
     </BaseControl>
   )
 }

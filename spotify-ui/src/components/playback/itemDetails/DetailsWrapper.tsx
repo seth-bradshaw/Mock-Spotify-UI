@@ -8,7 +8,7 @@ interface Props {
 
 export default function DetailsWrapper({}: Props): ReactElement {
   return (
-    <div className="basis-1/5">
+    <div className="basis-1/3">
       <ItemImageContainer />
       <ItemDetails />
     </div>
