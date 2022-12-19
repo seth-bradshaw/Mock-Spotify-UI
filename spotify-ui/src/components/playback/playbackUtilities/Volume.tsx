@@ -10,6 +10,7 @@ interface Props {}
 
 export default function Volume({}: Props): ReactElement {
   const [volume, setVolume] = useState<number>(50);
+  const [prevVolume, setPrevVolume] = useState<number>(0); // * cached value after mute
   const { player } = usePlaybackContext();
 
   useEffect(() => {
@@ -28,23 +29,27 @@ export default function Volume({}: Props): ReactElement {
     BufferVolumeChange.interceptEvent({ type: e.type, volume_percent });
   };
 
-  const muteVolume = () => {
+  const toggleMute = () => {
     // * spotify web API or SDK don't support mute, so we need to manually do it
-    BufferVolumeChange.callUpdateVolume(0);
-    setVolume(0);
-
-    const slider = document.querySelector("#volume-slider") as HTMLInputElement;
-    slider.style.background = `linear-gradient(to right, #A7A7A7 0%, #A7A7A7 100%)`;
-    slider.value = "0";
+    if (volume === 0) {
+      BufferVolumeChange.callUpdateVolume(prevVolume);
+      setVolume(prevVolume)
+      setPrevVolume(0)
+    } else {
+      BufferVolumeChange.callUpdateVolume(0);
+      setPrevVolume(volume);
+      setVolume(0);
+    }
   };
 
   return (
     <div className="flex gap-2 items-center">
-      <VolumeIcon volume={volume} muteVolume={muteVolume} />
+      <VolumeIcon volume={volume} muteVolume={toggleMute} />
       <BaseSlider
         defaultValue={volume}
         id={"volume-slider"}
         handleChange={updateVolume}
+        value={volume}
       />
     </div>
   );
