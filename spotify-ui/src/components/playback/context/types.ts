@@ -58,6 +58,7 @@ export type TrackWindow = {
 }
 
 export type PlayerState = {
+  duration: number;
   context: PlayerContext;
   disallows: PlayerDisallows;
   paused: boolean;
