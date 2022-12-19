@@ -5,31 +5,33 @@ type PlayerEventHandler = (state: PlayerState) => void;
 const playbackBus = new Map();
 
 // TODO update to Player type once ready
-// * Pass player instance, event name, and handler cb
-const playerEventHandler = (player: AnyObj, name: string, subscriptionId: string, handler: PlayerEventHandler) => {
+// * Pass player instance, event (Player event, e.g 'player_state_changed'), subscriptionId, and handler callback (e.g. maybeUpdateState)
+const playerEventHandler = (player: AnyObj, event: string, subscriptionId: string, handler: PlayerEventHandler) => {
     if (!player) {
         return;
     }
 
-    const callback = (state: PlayerState) => {
+    const callback = (state: PlayerState | null | undefined) => {
         if (!state) {
             return;
         }
         handler(state);
     }
 
-    // dynamically adds event to map if not already defined
-    if (!playbackBus.get(name)) {
-        playbackBus.set(name, {})
+    // * adds event with empty subscription object to map if not already defined
+    if (!playbackBus.get(event)) {
+        playbackBus.set(event, {})
     }
 
-    if (playbackBus.get(name)[subscriptionId]) {
-        player.removeListener(name, playbackBus.get(name)[subscriptionId])
-        player.addListener(name, callback)
-        playbackBus.set(name, {...playbackBus.get(name), [subscriptionId]: handler})
+    // * check if subscription callback already exists
+    if (playbackBus.get(event)[subscriptionId]) {
+        // * remove existing callback
+        player.removeListener(event, playbackBus.get(event)[subscriptionId])
+        player.addListener(event, callback)
+        playbackBus.set(event, { ...playbackBus.get(event), [subscriptionId]: handler })
     } else {
-        player.addListener(name, callback);
-        playbackBus.set(name, {...playbackBus.get(name), [subscriptionId]: handler})
+        player.addListener(event, callback);
+        playbackBus.set(event, { ...playbackBus.get(event), [subscriptionId]: handler })
     }
 }
 
