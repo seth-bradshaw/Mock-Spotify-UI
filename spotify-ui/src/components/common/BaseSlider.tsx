@@ -22,15 +22,15 @@ export default function BaseSlider({
   id,
   className = '',
   max = '100',
-  value
+  value = 0
 }: Props): ReactElement {
   const [background, setBackground] = useState<BackgroundColor>(BackgroundColor.white);
   // * reference to input, avoids needing to select by id
   const inputRef = useRef<HTMLInputElement | null>(null); 
 
   useEffect(() => {
-  // * calcs percentage of either BackgroundColor options to display
-    const percent = (value / Number(max)) * 100;  
+    // * calcs percentage of either BackgroundColor options to display
+    const percent = (value / Number(max)) * 100 || 0;  
 
     if (inputRef.current) {
       // * update input background to display BackgroundColor option x percent
