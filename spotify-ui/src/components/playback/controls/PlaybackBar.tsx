@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import BaseSlider from '../../common/BaseSlider'
 import { usePlaybackContext } from '../context'
 import { PlayerState } from '../context/types'
@@ -41,6 +41,20 @@ export default function PlaybackBar({}: Props) {
         }
     }
 
+    const seekToPosition = (e: FormEvent) => {
+        const seekPosition = Number((e.target as HTMLInputElement).value);
+        if (!player || seekPosition === position) {
+            return;
+        }
+        
+        // * remove existing position interval
+        Interval.removeInterval();
+
+        // * seek to new position, this triggers the 'player_state_changed' event, 
+        // * so maybeSyncBar will handle creating new position interval
+        player.seek(seekPosition).then(() => console.log('seeked to ', {seekPosition}))
+    }
+
     useEffect(() => {
         if (!player) {
             return;
@@ -52,7 +66,7 @@ export default function PlaybackBar({}: Props) {
   return (
     <div className='w-full flex gap-2 items-center text-sm'>
         <TimeLabel className="align-right" label={msToMinutesAndSeconds(position)} htmlFor='playback-bar' />
-        <BaseSlider id="playback-bar" defaultValue={0} className="w-full" value={position} max={duration.toString()} handleChange={(e) => console.log((e.target as HTMLInputElement).value)}/>
+        <BaseSlider id="playback-bar" defaultValue={0} className="w-full" value={position} max={duration.toString()} handleChange={seekToPosition}/>
         <TimeLabel className="align-left" label={msToMinutesAndSeconds(duration)} />
     </div>
   )
