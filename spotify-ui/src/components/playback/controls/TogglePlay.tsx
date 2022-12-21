@@ -27,7 +27,6 @@ export default function TogglePlay({}: Props): ReactElement {
   }
   
   const maybeUpdateState = (state: PlayerState) => {
-    console.log('state changed', state)
     if (track !== state.track_window.current_track?.uri) {
       setTrack(state.track_window.current_track.uri)
     }

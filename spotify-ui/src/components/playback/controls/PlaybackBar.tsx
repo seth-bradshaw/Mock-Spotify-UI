@@ -65,9 +65,9 @@ export default function PlaybackBar({}: Props) {
 
   return (
     <div className='w-full flex gap-2 items-center text-sm'>
-        <TimeLabel className="align-right" label={msToMinutesAndSeconds(position)} htmlFor='playback-bar' />
+        <TimeLabel className="text-right" label={msToMinutesAndSeconds(position)} />
         <BaseSlider id="playback-bar" defaultValue={0} className="w-full" value={position} max={duration.toString()} handleChange={seekToPosition}/>
-        <TimeLabel className="align-left" label={msToMinutesAndSeconds(duration)} />
+        <TimeLabel className="text-left" label={msToMinutesAndSeconds(duration)} />
     </div>
   )
 }
