@@ -84,7 +84,7 @@ export default function ItemDetails({track}: Props): ReactElement {
 
   // Possibly to do with word-break and overflow
     <div className="h-full text-left flex flex-col p-1 justify-center ml-[6px]">
-      <a className="text-small text-white" onClick={(e) => {
+      <a className="text-small text-white hover:underline" onClick={(e) => {
         e.preventDefault();
       }}>
           {/* <p className="truncate">{track?.name ?? ''}</p>
@@ -95,7 +95,7 @@ export default function ItemDetails({track}: Props): ReactElement {
         <p className="truncate">{createListOfArtists()}</p> */}
           <p className="truncate">{track?.name ?? ''}</p>
       </a>
-      <a className="text-[11px] text-spotify-gray-300 break-keep text-ellipsis" onClick={(e) => {
+      <a className="text-[11px] text-spotify-gray-300 break-keep text-ellipsis hover:underline" onClick={(e) => {
         e.preventDefault();
       }}>
         <p className="truncate">{createListOfArtists()}</p>
