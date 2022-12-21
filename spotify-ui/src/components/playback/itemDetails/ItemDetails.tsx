@@ -83,17 +83,18 @@ export default function ItemDetails({track}: Props): ReactElement {
       // a tags redirect to artist page
 
   // Possibly to do with word-break and overflow
-    <div className="h-full text-left flex flex-col p-1 justify-center ml-[6px]">
-      <a className="text-small text-white hover:underline hover:animate-slide break-keep text-ellipsis" onClick={(e) => {
+    <div className="h-full text-left flex flex-col p-1 justify-center ml-[6px] overflow-hidden">
+      <p className="text-small text-white hover:underline hover:animate-scroll-text-linear overflow-x-visible" onClick={(e) => {
         e.preventDefault();
       }}>
-          <p className="truncate">{track?.name ?? ''}</p>
-      </a>
-      <a className="text-[11px] text-spotify-gray-300 break-keep text-ellipsis hover:underline" onClick={(e) => {
+          {/* <p className="truncate">{track?.name ?? ''}</p> */}
+          <a className="truncate">{"'Tis a test of ze anime"}</a>
+      </p>
+      <p className="text-[11px] text-spotify-gray-300 hover:underline hover:animate-scroll-text-linear overflow-x-visible" onClick={(e) => {
         e.preventDefault();
       }}>
-        <p className="truncate">{createListOfArtists()}</p>
-      </a>
+        <a className="truncate">{createListOfArtists()}</a>
+      </p>
     </div>
   )
 }
