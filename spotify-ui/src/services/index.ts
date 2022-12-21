@@ -64,8 +64,9 @@ export const getPlaybackDevices = async () => {
 
 export const transferDevice = async (deviceId: string) => {
   const headers = getAuthHeader();
+  const body = { device_ids: [deviceId] };
   const response = await axios
-    .post(TRANSFER_DEVICE, { device_ids: [deviceId] }, { headers })
+    .post(TRANSFER_DEVICE, body, { headers })
     .then(({ data }) => {
       console.log('device transfer data', { data });
       return data;

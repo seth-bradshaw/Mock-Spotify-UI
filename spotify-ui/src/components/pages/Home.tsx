@@ -1,14 +1,11 @@
-import React, {useEffect} from 'react'
-import SpotifyPlayback from '../playback/SpotifyPlayback'
-import PlaybackContextProvider from '../playback/PlaybackContext'
+import React from 'react'
+import PlaybackSection from '../playback'
+
 export default function Home() {
-  useEffect(() => {
-    console.log('inside seths butt')
-  }, [])
-  console.log('outside seths butt')
+  
   return (
     <div>
-      <PlaybackContextProvider/>
+      <PlaybackSection />
     </div>
   )
 }

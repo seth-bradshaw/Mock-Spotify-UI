@@ -1,0 +1,20 @@
+.slider {
+    border-radius: 8px;
+    height: 6px;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: transparent;
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+}
+
+.slider:hover::-webkit-slider-thumb {
+    background: #ffffff;
+    transition: color, background 200ms ease-in-out;
+}
