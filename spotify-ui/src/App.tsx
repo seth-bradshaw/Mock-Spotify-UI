@@ -5,7 +5,7 @@ import { Home, Landing } from './components/pages';
 function App() {
 
   return (
-    <div>
+    <div className='h-full'>
       <Routes>
         <Route path='' element={<Landing />} />
         <Route path='home' element={<Home />} />

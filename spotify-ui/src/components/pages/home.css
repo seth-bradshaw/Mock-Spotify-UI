@@ -1,0 +1,5 @@
+.home-layout {
+  display: grid;
+  grid-template-columns: 200px 2fr;
+  grid-template-rows: 1fr 96px;
+}
