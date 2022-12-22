@@ -46,13 +46,12 @@ export default function DetailsWrapper({}: Props): ReactElement {
     }, [player])
 
   return (
-    <div className="basis-1/3 flex items-center justify-start">
+    <div className="basis-1/3 min-w-[225px] flex items-center justify-start">
       <ItemImageContainer track={track}/>
       <ItemDetails track={track} />
       {/* // TODO: come back to this after text overflow handling */}
       <div className="p-1 items-center justify-start">
-        <i className="fa-regular fa-heart p-1"></i>
-        <i className="fa-solid fa-arrow-up-right-from-square p-1"></i>
+        <i className="fa-regular fa-heart p-1 shadow-inner-md z-20"></i>
       </div>
     </div>
   )
