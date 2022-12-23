@@ -50,7 +50,7 @@ export default function ItemDetails({track}: Props): ReactElement {
     <div id="item-details-container" className="h-full text-left flex flex-col p-1 justify-center ml-[6px] overflow-hidden relative z-10">
       <ItemDetail className="text-small text-white">
         <a id="track-item-details-container" className="text-small text-white min-w-fit">
-          {"'Tis a thueae"}
+          {track?.name ?? ''}
         </a>
       </ItemDetail>
       <ItemDetail id="artist-item-details-container" className="text-[11px] text-spotify-gray-300">
