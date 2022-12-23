@@ -41,13 +41,11 @@ export default function ItemDetails({track}: Props): ReactElement {
 
   // TODO: fix this, should only add classes to element parent instead of both elements parents
   const addAnimationToElement = (element: AnyObj) => {
-    document.querySelectorAll('#p-item-details-container').forEach((el) => {
-      element.classList.add('hover:animate-none', 'animate-scroll-text-linear')
-    })
+    element.parentNode.parentNode.classList.add('hover:animate-none', 'animate-scroll-text-linear');
   }
 
   return (
-    <div id="item-details-container" className="h-full text-left flex flex-col p-1 justify-center ml-[6px] overflow-hidden relative z-10">
+    <div id="item-details-container" className="h-full text-left flex flex-col p-1 justify-center ml-[6px] overflow-hidden">
       <ItemDetail className="text-small text-white">
         <a id="track-item-details-container" className="text-small text-white min-w-fit">
           {track?.name ?? ''}

@@ -18,8 +18,8 @@ export default function ItemImageContainer({track}: Props): ReactElement {
   }, [track])
 
   return (
-    <div className="block relative min-w-[64px]">
-      <BaseImage imageUrl={imageUrl} className="block min-w-[64px] w-16 h-16">
+    <div className="block relative min-w-[64px] z-50">
+      <BaseImage imageUrl={imageUrl} className="block min-w-[64px] w-16 h-16 z-40">
         <div className="bg-transparent block group absolute z-50 top-0 h-full w-full">
           <button className="button flex absolute rounded-full invisible group-hover:visible bg-spotify-gray-800 h-6 w-6 items-center justify-center hover:text-white top-[5px] right-[5px] z-50">
             <i className="fa-solid fa-angle-up" />
