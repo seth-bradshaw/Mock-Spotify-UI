@@ -7,7 +7,7 @@ export default function Menu({}: Props) {
   return (
     <div className="col-span-1 flex relative bg-black">
       <div className="text-white w-full">
-        <Link to="search" >Menu</Link>
+        <Link to="playlist/37i9dQZF1F0sijgNaJdgit" >Menu</Link>
       </div>
       <Resize />
     </div>
