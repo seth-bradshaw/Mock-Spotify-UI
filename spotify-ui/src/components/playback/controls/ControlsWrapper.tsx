@@ -1,13 +1,11 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { skipToNext, skipToPrevious } from '../../../services'
 import BaseControl from './BaseControl'
 import PlaybackBar from './PlaybackBar'
 import SkipTrack from './SkipTrack'
 import TogglePlay from './TogglePlay'
 
-interface Props {
-  
-}
+interface Props {}
 
 export default function ControlsWrapper({}: Props): ReactElement {
   return (

@@ -1,8 +1,5 @@
-import React, { useEffect, useState, useRef, PropsWithChildren } from 'react'
-// @ts-ignore
-import { isEmpty } from 'rambda';
+import { PropsWithChildren } from 'react'
 import { WebPlaybackTrack, AnyObj } from '../context/types'
-import { Artists } from '../context/types';
 
 interface Props {
     className?: string,
@@ -11,16 +8,7 @@ interface Props {
     wrapperRef?: AnyObj,
 }
 
-export default function ItemDetail({className='', id='', track, children}: PropsWithChildren<Props>) {
-  useEffect(() => {
-    console.log('useEffect called in ItemDetail')
-
-  }, [track])
-
-  // const handleMouseOverEventHandler = (event: MouseEvent) => {
-  //  onsole.log('handleMouseOverEventHandler', event);
-  // }
-
+export default function ItemDetail({className='', id='', children}: PropsWithChildren<Props>) {
   return (
       <div id="p-item-details-container" className={`hover:underline overflow-x-visible z-10 ${className}`} onClick={(e) => {
       }}>
