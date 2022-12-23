@@ -41,7 +41,7 @@ export default function TogglePlay({}: Props): ReactElement {
   }, [player, track, isPlaying])
 
   return (
-    <BaseControl clickHandler={() => handleClick({ playerInstance: player, spotify_uri: track})} className="bg-white">
+    <BaseControl clickHandler={() => handleClick({ playerInstance: player, spotify_uri: track})} className="!bg-white">
       <PlayIcon isPlaying={isPlaying} />
     </BaseControl>
   )
