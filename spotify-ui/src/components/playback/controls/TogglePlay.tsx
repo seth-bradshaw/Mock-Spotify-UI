@@ -1,4 +1,6 @@
-import React, { useState, ReactElement, useEffect, useCallback } from 'react'
+import React, { useState, ReactElement, useEffect } from 'react';
+// @ts-ignore
+import { isNil } from 'ramda'
 import { pausePlayer, resumePlayer } from '../../../services';
 import { usePlaybackContext } from '../context';
 import { AnyObj, PlayerState } from '../context/types';
@@ -27,11 +29,13 @@ export default function TogglePlay({}: Props): ReactElement {
   }
   
   const maybeUpdateState = (state: PlayerState) => {
-    if (track !== state.track_window.current_track?.uri) {
+    const isValidState = !isNil(state.track_window.current_track);
+    
+    if (isValidState && track !== state.track_window.current_track?.uri) {
       setTrack(state.track_window.current_track.uri)
     }
     
-    if (isPlaying !== !state.paused) {
+    if (isValidState && isPlaying !== !state.paused) {
       setIsPlaying(!state.paused);
     }
   }
@@ -41,7 +45,7 @@ export default function TogglePlay({}: Props): ReactElement {
   }, [player, track, isPlaying])
 
   return (
-    <BaseControl clickHandler={() => handleClick({ playerInstance: player, spotify_uri: track})} className="bg-white">
+    <BaseControl clickHandler={() => handleClick({ playerInstance: player, spotify_uri: track})} className="!bg-white">
       <PlayIcon isPlaying={isPlaying} />
     </BaseControl>
   )
