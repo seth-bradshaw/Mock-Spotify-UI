@@ -12,7 +12,7 @@ const playerEventHandler = (player: AnyObj, event: string, subscriptionId: strin
     }
 
     const callback = (state: PlayerState | null | undefined) => {
-        if (!state) {
+        if (!state || !state?.track_window?.current_track) {
             return;
         }
         handler(state);
