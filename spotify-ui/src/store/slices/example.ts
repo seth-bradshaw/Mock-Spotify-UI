@@ -1,16 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { AnyObj } from '../../components/playback/context/types';
+import { getUserQueue } from '../../services';
+
+// ! remove later, leave as example for now
+export const fetchQueue = createAsyncThunk(
+  "counter/fetch", 
+  async (_args: string, thunkApi) => {
+    const response = await getUserQueue();
+
+    if (response.status !== 200) {
+      return thunkApi.rejectWithValue({ 
+        message: "Failed to fetch queue." 
+      });
+    }
+    
+    return response;
+  }
+);
 
 export const counterSlice = createSlice({
   name: 'counter',
   initialState: {
     value: 0,
+    queue: [],
+    status: '',
+    error: ''
   },
   reducers: {
     increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.value += 1
     },
     decrement: (state) => {
@@ -20,9 +37,26 @@ export const counterSlice = createSlice({
       state.value += action.payload
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchQueue.pending, (state) => {
+      state.status = "loading";
+      state.error = '';
+    });
+
+    builder.addCase(fetchQueue.fulfilled, 
+      (state, { payload }) => {
+      state.queue = payload.data.queue;
+      state.status = "idle";
+    });
+
+    builder.addCase(fetchQueue.rejected, 
+      (state, { payload }: AnyObj) => {
+      if (payload) state.error = payload.message;
+      state.status = "idle";
+    });
+  },
 })
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment, decrement, incrementByAmount, } = counterSlice.actions
 
 export default counterSlice.reducer
