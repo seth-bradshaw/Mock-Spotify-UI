@@ -18,6 +18,7 @@ import {
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 import { safeParse } from "../utils";
+import { SavedTracksRes } from "../store/slices/track/track";
 
 export const loginWithSpotify = () => {
   window.location.href = LOGIN;
@@ -283,6 +284,34 @@ export const getCurrentUserTopItems = async (type: TopItemsType) => {
     .catch(err => {
       console.log('error getting profile top items', { err });
       return err
+    })
+
+  return response;
+}
+
+enum SavedTracksParams {
+  Limit = 'limit',
+  Market = 'market',
+  Offset = 'offset'
+}
+
+type SavedTrackParam = {
+  [SavedTracksParams.Limit]?: number;
+  [SavedTracksParams.Market]?: string;
+  [SavedTracksParams.Offset]?: number;
+}
+
+export const getUserSavedTracks = async (params?:Array<SavedTrackParam>): Promise<SavedTracksRes> => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PROFILE_URL}/tracks`, { headers })
+    .then(res => {
+      console.log('user saved tracks res ===> ', { res })
+      return res.data;
+    })
+    .catch(err => {
+      console.log('error fetching user saved tracks ===> ', { err })
+      return err;
     })
 
   return response;
