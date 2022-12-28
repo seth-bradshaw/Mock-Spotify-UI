@@ -21,7 +21,7 @@ export default function PlaybackBar({}: Props) {
     const [position, setPosition] = useState<number>(0);
     const { player } = usePlaybackContext();
 
-    const handleChange = (pos: number, dur: number) => {
+    const handleChange = (pos: number) => {
         setPosition(pos)
     }
 

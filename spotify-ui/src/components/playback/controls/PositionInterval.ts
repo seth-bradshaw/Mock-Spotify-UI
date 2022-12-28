@@ -9,7 +9,7 @@ class PositionInterval {
         this.duration = 0;
     }
 
-    startIntervalAt(position: number, duration: number, cb: (pos: number, dur: number) => void) {
+    startIntervalAt(position: number, duration: number, cb: (pos: number) => void) {
         this.duration = duration;
         this.position = position;
 
@@ -18,7 +18,7 @@ class PositionInterval {
         this.interval = setInterval(() => {
             if (this.position < this.duration) {
                 this.position += 1000;
-                cb(this.position, this.duration)
+                cb(this.position)
             } else { 
                 this.removeInterval();
             }
