@@ -18,3 +18,5 @@
     background: #ffffff;
     transition: color, background 200ms ease-in-out;
 }
+
+/* TODO setup on safari and firefox */
