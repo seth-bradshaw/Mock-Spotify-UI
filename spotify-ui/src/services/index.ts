@@ -18,7 +18,7 @@ import {
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 import { safeParse } from "../utils";
-import { SavedTracksRes } from "../store/slices/track/track";
+import { SavedTracksRes } from "./trackRes.types";
 
 export const loginWithSpotify = () => {
   window.location.href = LOGIN;

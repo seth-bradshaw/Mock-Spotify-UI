@@ -1,3 +1,8 @@
 import trackReducer from './track';
+import fetchSavedTracks from './fetchSavedTracks';
 
-export default trackReducer;
+
+export {
+    trackReducer as default,
+    fetchSavedTracks
+}

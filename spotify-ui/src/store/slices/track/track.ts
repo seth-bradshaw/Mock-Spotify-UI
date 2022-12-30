@@ -1,35 +1,19 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserSavedTracks } from "../../../services";
-import { TrackState, Track } from "./types";
+import { createSlice } from "@reduxjs/toolkit";
+import { TrackState } from "./types";
+import fetchSavedTracks from "./fetchSavedTracks";
 
 const initialState: TrackState = {
-  savedTracks: { tracks: [] },
+  savedTracks: { 
+    tracks: [],
+    offset: 0, 
+    total: 0,
+    limit: 20 // * default req size to 20
+  },
   activeTrack: null,
   status: '',
   error: ''
 }
 
-export type SavedTracksRes = {
-  href: string;
-  items: Array<Track>;
-  limit: number;
-  message?: string;
-  next: null | string;
-  offset: number;
-  previous: null | string;
-  total: number;
-  status?: number;
-}
-
-export const fetchSavedTracks = createAsyncThunk<SavedTracksRes, undefined, { rejectValue: { message: string } | string }>('track/fetchSaved', async (_, thunkApi) => {
-  const response = await getUserSavedTracks();
-  
-  console.log('status', { response})
-  if (response?.status ?? 200 >= 400) {
-    return thunkApi.rejectWithValue(response?.message ?? 'Failed to get saved songs');
-  }
-  return response;
-})
 
 export const trackSlice = createSlice({
   name: 'track',
