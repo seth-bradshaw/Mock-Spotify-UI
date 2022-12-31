@@ -1,6 +1,6 @@
 import { Track } from "../constants/types/track";
 
-export type SavedTracksRes = {
+export interface SavedTracksRes {
   href: string;
   items: Array<Track>;
   limit: number;

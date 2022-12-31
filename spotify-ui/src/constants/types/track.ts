@@ -42,7 +42,7 @@ type TrackDetails = {
   uri: string;
 }
 
-export type Track = {
+export interface Track {
   added_at: string;
   track: TrackDetails;
 }
