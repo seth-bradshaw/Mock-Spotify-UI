@@ -6,6 +6,7 @@ export type SavedTracks = {
   total: number;
   limit: number; // * amount per request
 }
+
 export type TrackState = {
   savedTracks: SavedTracks;
   activeTrack: Track | null;
