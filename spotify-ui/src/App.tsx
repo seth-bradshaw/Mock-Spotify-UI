@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router';
 import View from './components/mainView';
 import Artist from './components/mainView/views/Artist';
