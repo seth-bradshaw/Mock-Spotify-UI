@@ -2,7 +2,7 @@ import { Artist } from "../../../constants/types/artist";
 
 export type SavedArtists = {
     artists: Array<Artist>;
-    after: string | null; // * request start index
+    after: string; // * request start index
     limit: number; // * response size
 }
 
