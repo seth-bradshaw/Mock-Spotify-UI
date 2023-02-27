@@ -14,7 +14,8 @@ import {
   PROFILE_URL,
   PLAYLIST_URL,
   RESUME_PLAYER,
-  PAUSE_PLAYER
+  PAUSE_PLAYER,
+  ARTISTS_URL
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 import { safeParse } from "../utils";
@@ -252,6 +253,17 @@ export const getUserFollowedArtists = async (limit: number, after: string = '') 
   const params = getOptionalParams([{ limit}, { after }])
 
   const response = await axios.get(`${PROFILE_URL}/followed/artists?${params}`, { headers })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+export const extractId = (uri: string | undefined) => uri ? uri.split(':').at(-1) : uri
+export const getArtistDetails = async (id: string) => {
+  const headers = getAuthHeader();
+  
+  const response = await axios.get(`${ARTISTS_URL + '/' + id}`, { headers })
     .then(res => res.data)
     .catch(err => err);
 

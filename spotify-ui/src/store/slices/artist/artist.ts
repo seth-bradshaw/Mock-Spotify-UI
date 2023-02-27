@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FollowedArtistResponse } from "../../../services/followedArtists.types";
+import fetchArtistDetails, { ArtistDetailsRes } from "./fetchArtistDetails";
 import fetchFollowedArtists from "./fetchSavedArtists";
 import { ArtistState } from "./types";
+// @ts-ignore
+import { omit } from 'ramda';
 
 const initialState: ArtistState = {
     savedArtists: {
         artists: [],
-        after: null, // * id of last fetched artist
+        after: '', // * id of last fetched artist
         limit: 20
     },
     activeArtist: null,
@@ -38,6 +41,21 @@ const artistSlice = createSlice({
         })
 
         builder.addCase(fetchFollowedArtists.rejected, (state, { payload }) => {
+            if (payload) state.error = payload;
+            state.status = 'idle'
+        })
+
+        builder.addCase(fetchArtistDetails.pending, (state) => {
+            state.status = 'loading';
+            state.error = null;
+        });
+
+        builder.addCase(fetchArtistDetails.fulfilled, (state, { payload }: PayloadAction<ArtistDetailsRes>) => {
+            state.activeArtist = omit(['status', 'message'], payload)
+            state.status = 'idle'
+        })
+
+        builder.addCase(fetchArtistDetails.rejected, (state, { payload }) => {
             if (payload) state.error = payload;
             state.status = 'idle'
         })

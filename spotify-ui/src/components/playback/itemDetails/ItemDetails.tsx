@@ -1,4 +1,8 @@
 import { ReactElement, useEffect } from 'react'
+import { useNavigate } from 'react-router';
+import { extractId } from '../../../services';
+import { useDispatch } from '../../../store/hooks';
+import fetchArtistDetails from '../../../store/slices/artist/fetchArtistDetails';
 import { WebPlaybackTrack } from '../context/types'
 import { AnyObj, Artists } from '../context/types';
 import ItemDetail from './ItemDetail';
@@ -8,6 +12,13 @@ interface Props {
 }
 
 export default function ItemDetails({track}: Props): ReactElement {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const openArtistDetails = (uri:string) => {
+    dispatch(fetchArtistDetails(extractId(uri) ?? ''));
+    navigate(`artist/${extractId(uri)}`);
+  }
   useEffect(() => {
     if (!track) return;
 
@@ -54,7 +65,7 @@ export default function ItemDetails({track}: Props): ReactElement {
       <ItemDetail id="artist-item-details-container" className="text-[11px] text-spotify-gray-300">
         {
           track?.artists?.map((curr: Artists, idx: number) => {
-            return <a>{`${idx === track?.artists.length - 1 ? curr.name : curr.name + ', '}`}</a>;
+            return <p onClick={() => openArtistDetails(curr.uri)}>{`${idx === track?.artists.length - 1 ? curr.name : curr.name + ', '}`}</p>;
           })
         }
       </ItemDetail>
