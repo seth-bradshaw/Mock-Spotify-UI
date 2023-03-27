@@ -25,7 +25,7 @@ export default function TogglePlay({}: Props): ReactElement {
       _options: { getOAuthToken },
     },
   }: AnyObj) => {
-    getOAuthToken(() => isPlaying ? pausePlayer() : resumePlayer({ body: { tracks: [spotify_uri]} }));
+    getOAuthToken(() => isPlaying ? pausePlayer() : resumePlayer({ uris: [spotify_uri] }));
   }
   
   const maybeUpdateState = (state: PlayerState) => {
