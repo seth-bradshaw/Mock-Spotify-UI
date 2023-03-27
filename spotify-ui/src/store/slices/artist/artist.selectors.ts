@@ -1,9 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "../..";
 import { ArtistState } from "./types";
 
 // TODO create complete app state type
-const selectArtists = (state: { artist: ArtistState }) => state.artist;
+const selectArtist = (state: RootState) => state.artist;
 
-export const getActiveArtist = createSelector(selectArtists, ({ activeArtist }) => activeArtist);
+export const getActiveArtist = createSelector(selectArtist, ({ activeArtist }) => activeArtist);
 
-export const getFollowedArtists = createSelector(selectArtists, ({ savedArtists }) => savedArtists);
+export const getFollowedArtists = createSelector(selectArtist, ({ savedArtists }) => savedArtists);
+
+export const getIsArtistLoading = createSelector(selectArtist, ({ status }) => status !== 'idle');
