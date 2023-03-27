@@ -78,12 +78,12 @@ export const transferDevice = async (deviceId: string) => {
   return response;
 }
 
-export const resumePlayer = async ({ device_id, body}: { device_id?: string; body?: any;}) => {
+export const resumePlayer = async ({ device_id, uris, context_uri}: { device_id?: string; uris?: Array<string>; context_uri?: string;}) => {
   const headers = getAuthHeader();
   const params = Boolean(device_id) ? `?device_id=${device_id}` : ''
 
   const response = await axios
-    .post(`${RESUME_PLAYER + params}`, body, { headers } )
+    .post(`${RESUME_PLAYER + params}`, { uris, context_uri }, { headers } )
     .then(({ data }) => data)
     .catch(err => err)
 
@@ -268,4 +268,37 @@ export const getArtistDetails = async (id: string) => {
     .catch(err => err);
 
   return response;
+}
+
+
+export const getArtistTopTracks = async (id: string) => {
+  const headers = getAuthHeader();
+  
+  const response = await axios.get(`${ARTISTS_URL + '/' + id + '/top-tracks'}`, { headers })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+export const getArtistAlbums = async (id: string) => {
+  const headers = getAuthHeader();
+  
+  const response = await axios.get(`${ARTISTS_URL + '/' + id + '/albums'}`, { headers })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+export type RgbObject = { r: number; g: number; b: number }
+export const fetchPrimaryColorFromImage = async (img_url:string) => {
+  const rgb: RgbObject  = await axios.get(`http://localhost:5000/primary-color?img_url=${img_url}`, {    headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+    Accept: "application/json",
+  }})
+    .then(res => res.data)
+    .catch(err => err)
+
+  return rgb;
 }

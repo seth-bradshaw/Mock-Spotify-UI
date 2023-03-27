@@ -6,9 +6,14 @@ export type SavedArtists = {
     limit: number; // * response size
 }
 
+export interface ActiveArtist extends Artist {
+    albums: any;
+    topTracks: any;
+}
+
 export type ArtistState = {
     savedArtists: SavedArtists;
-    activeArtist: Artist | null;
+    activeArtist: ActiveArtist | null;
     status: string;
     error: null | string | { message: string }
 }

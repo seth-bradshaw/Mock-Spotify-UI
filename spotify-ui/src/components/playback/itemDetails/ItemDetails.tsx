@@ -13,10 +13,8 @@ interface Props {
 
 export default function ItemDetails({track}: Props): ReactElement {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const openArtistDetails = (uri:string) => {
-    dispatch(fetchArtistDetails(extractId(uri) ?? ''));
     navigate(`artist/${extractId(uri)}`);
   }
   useEffect(() => {

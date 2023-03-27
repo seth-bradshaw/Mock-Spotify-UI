@@ -13,4 +13,5 @@ export interface Artist extends Artists {
   followers?: Followers;
   genres?: Array<String>;
   images?: Array<{url: string; height: number; width: number;}>
+  popularity?: number;
 }
