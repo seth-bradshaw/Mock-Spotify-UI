@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import trackReducer from './slices/track';
 import artistReducer from './slices/artist';
+import userReducer from './slices/user';
 
 const store = configureStore({ 
   reducer: { 
     track: trackReducer,
-    artist: artistReducer
+    artist: artistReducer,
+    user: userReducer
   }
 })
 

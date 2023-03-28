@@ -21,6 +21,7 @@ import getAuthHeader from "./getAuthHeader";
 import { safeParse } from "../utils";
 import { SavedTracksRes } from "./trackRes.types";
 import getOptionalParams from "../utils/getOptionalParams";
+import { SpotifyProfile } from "../store/slices/user/types";
 
 export const loginWithSpotify = () => {
   window.location.href = LOGIN;
@@ -197,6 +198,10 @@ export const getPlaylistItems = async (playlist_id: string) => {
   return response;
 }
 
+export interface ProfileResponse extends SpotifyProfile {
+  status?: number;
+  message?: string;
+}
 export const getCurrentUserProfile = async () => {
   const headers = getAuthHeader();
 
