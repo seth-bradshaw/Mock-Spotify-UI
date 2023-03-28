@@ -78,7 +78,7 @@ export default function Artist({}: Props) {
               {artist?.followers?.total ?? 0}
             </span>{" "}
             followers{" "}
-            <span className="text-sm italic">{`(${artist?.popularity}th percentile)`}</span>
+            <span className="text-sm italic">{`(${artist?.popularity} percentile)`}</span>
           </>
         }
         imgSrc={artist?.images ? artist.images[0].url : ''}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from '../../store/hooks'
 import { fetchFollowedArtists } from '../../store/slices/artist'
 import { fetchSavedTracks } from '../../store/slices/track'
+import { fetchSpotifyProfile } from '../../store/slices/user'
 import MainView from '../mainView'
 import NavMenu from '../navMenu'
 import PlaybackSection from '../playback'
@@ -11,9 +12,9 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // TODO add user profile call here
-    dispatch(fetchFollowedArtists({}))
-    dispatch(fetchSavedTracks({}))
+    dispatch(fetchSpotifyProfile(''));
+    dispatch(fetchFollowedArtists({}));
+    dispatch(fetchSavedTracks({}));
   }, [])
   
   return (
