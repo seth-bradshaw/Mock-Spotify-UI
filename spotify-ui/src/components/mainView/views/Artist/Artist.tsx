@@ -68,7 +68,7 @@ export default function Artist({}: Props) {
 
   return (
     <ViewWrapper
-      isLoading={isLoading && bg && artist?.albums?.items.length > 0}
+      isLoading={isLoading && bg && artist?.albums?.items?.length > 0}
     >
       <HeaderSection
         header={artist?.name ?? ""}
@@ -105,7 +105,7 @@ export default function Artist({}: Props) {
           </CardRow>
         </Section>
         <Section title="Discography">
-          <CardRow className="grid grid-cols-5">
+          <CardRow className="grid auto-cols-auto lg:grid-cols-3 xl:grid-cols-5">
             {albums?.map((album) => (
               <CardWithDescription
                 imgSrc={album.images[1].url}

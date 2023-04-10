@@ -7,6 +7,7 @@ import MainView from '../mainView'
 import NavMenu from '../navMenu'
 import PlaybackSection from '../playback'
 import './home.css'
+import { fetchSavedPlaylists } from '../../store/slices/playlist'
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function Home() {
     dispatch(fetchSpotifyProfile(''));
     dispatch(fetchFollowedArtists({}));
     dispatch(fetchSavedTracks({}));
+    dispatch(fetchSavedPlaylists({}));
   }, [])
   
   return (
