@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react'
 
 type Props = {
-  title: string;
+  title?: string;
   link?: string;
   linkHref?: string;
 }
 
-export default function Section({ title, link = '', linkHref = '', children }: PropsWithChildren<Props>) {
+export default function Section({ title = '', link = '', linkHref = '', children }: PropsWithChildren<Props>) {
   return (
     <div className="mb-10">
       <div className="w-full flex justify-between h-12 text-white">

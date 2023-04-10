@@ -168,10 +168,22 @@ export const searchQuery = async (query:string) => {
   return response
 }
 
-export const getCurrentUserPlaylists = async () => {
+export const getCurrentUserPlaylists = async (params:Array<ParamOpts>) => {
   const headers = getAuthHeader();
 
-  const response = await axios.get(`${PROFILE_URL}/playlists`, { headers })
+  const paramsToUse = getOptionalParams(params);
+
+  const response = await axios.get(`${PROFILE_URL}/playlists${paramsToUse}`, { headers })
+    .then(res => res.data)
+    .catch(err => err)
+
+  return response;
+}
+
+export const getPlaylistDetails = async (id: string) => {
+  const headers = getAuthHeader();
+
+  const response = await axios.get(`${PLAYLIST_URL}/playlist?playlist_id=${id}`, { headers})
     .then(res => res.data)
     .catch(err => err)
 
@@ -188,10 +200,14 @@ export const getPlaylistImages = async (playlist_id: string) => {
   return response;
 }
 
-export const getPlaylistItems = async (playlist_id: string) => {
-  const headers = getAuthHeader();
+export interface ParamsWithReqId extends ParamOpts {
+  playlist_id: string;
+}
 
-  const response = await axios.get(`${PLAYLIST_URL}/playlist/items?playlist_id=${playlist_id}`, { headers })
+export const getPlaylistItems = async (params:Array<ParamOpts>) => {
+  const headers = getAuthHeader();
+  const paramsToUse = getOptionalParams(params)
+  const response = await axios.get(`${PLAYLIST_URL}/playlist/items${paramsToUse}`, { headers })
     .then(res => res.data)
     .catch(err => err)
 
@@ -228,19 +244,19 @@ export const getCurrentUserTopItems = async (type: TopItemsType) => {
   return response;
 }
 
-enum SavedTracksParams {
+enum Params {
   Limit = 'limit', // * res body size
   Market = 'market',
   Offset = 'offset' // * starting index of res items
 }
 
-type SavedTrackParam = {
-  [SavedTracksParams.Limit]?: number;
-  [SavedTracksParams.Market]?: string;
-  [SavedTracksParams.Offset]?: number;
+export type ParamOpts = {
+  [Params.Limit]?: number;
+  [Params.Market]?: string;
+  [Params.Offset]?: number;
 }
 
-export const getUserSavedTracks = async (params:Array<SavedTrackParam>): Promise<SavedTracksRes> => {
+export const getUserSavedTracks = async (params:Array<ParamOpts>): Promise<SavedTracksRes> => {
   const headers = getAuthHeader();
 
   const paramsToUse = getOptionalParams(params);
