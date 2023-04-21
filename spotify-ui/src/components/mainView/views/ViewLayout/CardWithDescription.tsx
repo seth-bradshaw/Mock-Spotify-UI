@@ -25,7 +25,6 @@ export default function CardWithDescription({ imgSrc, label, description, handle
           <PlayIcon isPlaying={false} className="button flex absolute rounded-full invisible group-hover:visible bg-spotify-green-400 h-10 w-10 items-center justify-center hover:text-white top-[5px] right-[5px] z-50" />
         </BaseControl>
       </BaseImage>
-      {/* <img src={imgSrc} alt='Image of artist, playlist, or album cover'></img> */}
       <div className='mb-5 h-12'>
         <p className='text-white truncate'>{label}</p>
         <p className='text-spotify-gray-300'>{description}</p>

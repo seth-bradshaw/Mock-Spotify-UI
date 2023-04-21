@@ -20,6 +20,13 @@ import TrackCard from "../ViewLayout/TrackCard";
 
 type Props = {};
 
+export const formatAlbumDescription = (album): string => {
+  const year = album.release_date.slice(0, 4);
+  return `${year} • ${
+    album.album_group[0].toUpperCase() + album.album_group.slice(1)
+  }`;
+};
+
 export default function Artist({}: Props) {
   const [bg, setBg] = useState("");
   const { artistid = "" } = useParams();
@@ -55,12 +62,6 @@ export default function Artist({}: Props) {
     setBg(`rgb(${r}, ${g}, ${b})`);
   };
 
-  const formatAlbumDescription = (album): string => {
-    const year = album.release_date.slice(0, 4);
-    return `${year} • ${
-      album.album_group[0].toUpperCase() + album.album_group.slice(1)
-    }`;
-  };
 
   const playArtist = async () => {
     await resumePlayer({ context_uri: artist.uri, uris: [] })

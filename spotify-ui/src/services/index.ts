@@ -159,9 +159,9 @@ export const getUserQueue = async () => {
   return response;
 }
 
-export const searchQuery = async (query:string) => {
+export const searchQuery = async (query:string, filters: string) => {
   const headers = getAuthHeader()
-  const response = await axios.get(`${SEARCH_URL}?search=${query}`, { headers })
+  const response = await axios.get(`${SEARCH_URL}?q=${query}&type=${filters}`, { headers })
   .then(res => res.data)
   .catch(err => err)
 
