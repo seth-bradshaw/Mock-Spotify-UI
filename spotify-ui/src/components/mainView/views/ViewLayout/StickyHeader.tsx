@@ -23,7 +23,7 @@ export default function StickyHeader({
   };
   return (
     <div
-      className="w-full h-14 flex justify-between fixed p-4"
+      className="w-full h-14 flex justify-between fixed p-4 z-[9998]"
       style={{ backgroundColor: bgColor }}
     >
       <div className="flex gap-2">

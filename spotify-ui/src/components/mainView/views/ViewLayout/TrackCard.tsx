@@ -10,7 +10,7 @@ type Props = {
   duration: number;
   spotify_uri: string;
   explicit?: boolean;
-  rank: number;
+  rank?: number;
 };
 
 export default function TrackCard({
@@ -28,9 +28,11 @@ export default function TrackCard({
     <div className="w-full h-14 bg-transparent group" onClick={playTrack}>
       <div className="bg-transparent group-hover:bg-spotify-gray-600 p-4 flex justify-between items-center w-full h-full">
         <div className="flex gap-4 items-center overflow-hidden w-4/5">
-          <p className="text-spotify-gray-200 group-hover:hidden w-4 h-4">
-            {rank}
-          </p>
+          {
+            rank && (<p className="text-spotify-gray-200 group-hover:hidden w-4 h-4">
+              {rank}
+            </p>)
+          }
           <BaseControl
             clickHandler={console.log("")}
             className="hidden bg-transparent group-hover:flex w-4 h-4"
