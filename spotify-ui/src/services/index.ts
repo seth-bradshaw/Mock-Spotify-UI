@@ -15,7 +15,8 @@ import {
   PLAYLIST_URL,
   RESUME_PLAYER,
   PAUSE_PLAYER,
-  ARTISTS_URL
+  ARTISTS_URL,
+  CATEGORY_URL
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 import { safeParse } from "../utils";
@@ -322,4 +323,21 @@ export const fetchPrimaryColorFromImage = async (img_url:string) => {
     .catch(err => err)
 
   return rgb;
+}
+
+export const fetchBrowseCategories = async (params?:ParamOpts) => {
+  const response = await axios.get(`${CATEGORY_URL}/all`, { headers: getAuthHeader() })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+
+export const fetchCategoryPlaylists = async (category_id:string,params?:ParamOpts) => {
+  const response = await axios.get(`${CATEGORY_URL}/category/items/${category_id}`, { headers: getAuthHeader() })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
 }
