@@ -21,9 +21,10 @@ import TrackCard from "../ViewLayout/TrackCard";
 type Props = {};
 
 export const formatAlbumDescription = (album): string => {
+  if (!album) return ''
   const year = album.release_date.slice(0, 4);
   return `${year} • ${
-    album.album_group[0].toUpperCase() + album.album_group.slice(1)
+    album.type[0].toUpperCase() + album.type.slice(1)
   }`;
 };
 

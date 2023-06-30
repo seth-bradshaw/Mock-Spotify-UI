@@ -31,3 +31,6 @@ export const PLAYLIST_URL = `${mockSpotifyBaseURL}/playlists`
 
 // * ARTIST ENDPOINTS
 export const ARTISTS_URL = `${mockSpotifyBaseURL}/artists`
+
+// * CATEGORY ENDPOINTS
+export const CATEGORY_URL = `${mockSpotifyBaseURL}/categories`
