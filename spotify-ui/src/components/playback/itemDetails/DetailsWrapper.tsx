@@ -1,10 +1,9 @@
 import { ReactElement, useEffect, useState } from 'react'
-// @ts-ignore
 import {equals, isNil} from 'ramda'
 import ItemDetails from './ItemDetails'
 import ItemImageContainer from './ItemImageContainer'
 import { usePlaybackContext } from '../context'
-import { AnyObj, PlayerState, WebPlaybackTrack } from '../context/types';
+import { PlayerState, WebPlaybackTrack } from '../context/types';
 import { playerEventHandler } from '../sdk';
 
 interface Props {}

@@ -1,18 +1,16 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, RefObject } from 'react'
 import { WebPlaybackTrack, AnyObj } from '../context/types'
 
 interface Props {
     className?: string,
-    id?: string,
     track?: WebPlaybackTrack,
-    wrapperRef?: AnyObj,
+    itemRef?: RefObject<HTMLDivElement>,
 }
 
-export default function ItemDetail({className='', id='', children}: PropsWithChildren<Props>) {
+export default function ItemDetail({className='', itemRef=null, children}: PropsWithChildren<Props>) {
   return (
-      <div id="p-item-details-container" className={`hover:underline overflow-x-visible z-10 ${className}`} onClick={(e) => {
-      }}>
-        <div id={id} className="min-w-fit truncate">
+      <div className={`overflow-x-visible z-10 ${className}`}>
+        <div className="min-w-fit truncate" ref={itemRef}>
           {children}
         </div>
       </div>

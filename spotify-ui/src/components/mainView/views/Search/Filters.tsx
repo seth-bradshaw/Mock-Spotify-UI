@@ -4,7 +4,7 @@ import useSearchContext from "./useSearchContext";
 type Props = {};
 
 export default function Filters({}: Props) {
-  const { results, type, applyFilter } = useSearchContext();
+  const { results, type, applyFilter, query } = useSearchContext();
   const filters = [
     { displayName: "All", type: null },
     { displayName: "Albums", type: "album" },
@@ -14,7 +14,7 @@ export default function Filters({}: Props) {
   ];
 
   return (
-    results && (
+    results && query && (
       <div className="h-12 w-full flex gap-2 pl-5">
         {filters.map((filter) => (
           <div

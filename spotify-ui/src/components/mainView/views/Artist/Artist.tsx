@@ -15,7 +15,7 @@ import HeaderSection from "../ViewLayout/HeaderSection";
 import ActionBar from "../ViewLayout/ActionBar";
 import Section from "../ViewLayout/Section";
 import CardRow from "../ViewLayout/CardRow";
-import CardWithDescription from "../ViewLayout/CardWithDescription";
+import CardWithDescription, { ImageSize } from "../ViewLayout/CardWithDescription";
 import TrackCard from "../ViewLayout/TrackCard";
 
 type Props = {};
@@ -67,7 +67,7 @@ export default function Artist({}: Props) {
   const playArtist = async () => {
     await resumePlayer({ context_uri: artist.uri, uris: [] })
   }
-
+  
   return (
     <ViewWrapper
       isLoading={isLoading && bg && artist?.albums?.items?.length > 0}
@@ -107,9 +107,10 @@ export default function Artist({}: Props) {
           </CardRow>
         </Section>
         <Section title="Discography">
-          <CardRow className="grid auto-cols-auto lg:grid-cols-3 xl:grid-cols-5">
+          <CardRow className="grid auto-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {albums?.map((album) => (
               <CardWithDescription
+                imgSize={ImageSize.md}
                 imgSrc={album.images[1].url}
                 label={album.name}
                 description={formatAlbumDescription(album)}

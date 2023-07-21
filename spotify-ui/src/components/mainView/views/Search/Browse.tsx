@@ -4,9 +4,9 @@ import useSearchContext from './useSearchContext'
 type Props = {}
 
 export default function Browse({}: Props) {
-  const { results } = useSearchContext();
+  const { results, query } = useSearchContext();
 
-  return !results && (
+  return (!results || !query) && (
     <div>Browse</div>
   )
 }

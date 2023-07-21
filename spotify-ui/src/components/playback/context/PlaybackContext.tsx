@@ -13,6 +13,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
   // TODO define Player type
   const [player, setPlayer] = useState<AnyObj>();
   const [ready, setReady] = useState<Boolean>(false);
+  const [deviceId, setDeviceId] = useState<string>('');
 
   useEffect(() => {
     const token = safeParse(Cookies.get("spotify_access_token"))?.access_token;
@@ -31,7 +32,8 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
         "ready",
         ({ device_id }: PlaybackEventCallback) => {
           setReady(true);
-          transferDevice(device_id);
+          setDeviceId(device_id)
+          // transferDevice(device_id);
           // TODO save device_id to redux and maybe move transfer call?
         }
       );
@@ -39,6 +41,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
       player.addListener(
         "not_ready",
         ({ device_id }: PlaybackEventCallback) => {
+          setDeviceId(device_id)
           setReady(false);
         }
       );
@@ -53,7 +56,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
   }, []);
 
   return (
-    <PlaybackContext.Provider value={{ player, ready }}>
+    <PlaybackContext.Provider value={{ player, ready, deviceId }}>
       {children}
     </PlaybackContext.Provider>
   );

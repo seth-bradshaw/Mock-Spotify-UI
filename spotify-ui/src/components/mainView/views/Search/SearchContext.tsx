@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { searchQuery } from "../../../../services";
 
 export const SearchContext = createContext({});
@@ -14,10 +14,10 @@ export default function SearchContextProvider({ children }: PropsWithChildren) {
   const [results, setResults] = useState<any>(null); // TODO do type
   const [filteredResults, setFilteredResults] = useState<any>(null);
   const [type, setType] = useState<FilterTypes | null>(null);
-  const categories = null; // TODO select from state once implemented
+  const [query, setQuery] = useState<string>('');
 
-  const fetchSearchResults = async (q: string) => {
-    const response = await searchQuery(q, type ?? [FilterTypes.Alb, FilterTypes.Art, FilterTypes.Pst, FilterTypes.Trk].toString());
+  const fetchSearchResults = async () => {
+    const response = await searchQuery(query, type ?? [FilterTypes.Alb, FilterTypes.Art, FilterTypes.Pst, FilterTypes.Trk].toString());
     setResults(response);
   }
 
@@ -31,8 +31,16 @@ export default function SearchContextProvider({ children }: PropsWithChildren) {
     setFilteredResults(null)
   }
 
+  useEffect(() => {
+    if (query) {
+      fetchSearchResults()
+    } else {
+      clearResults()
+    }
+  }, [query])
+
   return (
-    <SearchContext.Provider value={{ results: type ? filteredResults : results, type, categories, fetchSearchResults, applyFilter, clearResults }}>
+    <SearchContext.Provider value={{ results: type ? filteredResults : results, type, fetchSearchResults, applyFilter, clearResults, query, setQuery }}>
       {children}
     </SearchContext.Provider>
   );

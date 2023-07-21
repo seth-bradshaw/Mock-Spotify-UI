@@ -25,20 +25,32 @@ export default function TrackCard({
     await resumePlayer({ uris: [spotify_uri] });
   };
   return (
-    <div className="w-full h-14 bg-transparent group" onClick={playTrack}>
+    <div className="w-full h-14 bg-transparent group relative" onClick={playTrack}>
       <div className="bg-transparent group-hover:bg-spotify-gray-600 p-4 flex justify-between items-center w-full h-full">
         <div className="flex gap-4 items-center overflow-hidden w-4/5">
           {
-            rank && (<p className="text-spotify-gray-200 group-hover:hidden w-4 h-4">
+            rank ? (
+           <>
+            <p className="text-spotify-gray-200 group-hover:hidden w-4 h-4">
               {rank}
-            </p>)
+            </p>
+
+            <BaseControl
+              clickHandler={console.log("")}
+              className="hidden bg-transparent group-hover:flex w-4 h-4"
+            >
+              <PlayIcon isPlaying={false} className="text-white w-4" />
+            </BaseControl>
+           </> 
+            ) : (
+              <div className="bg-transparent block group absolute z-50 top-[15px] h-full w-full left-0">
+                <button className="button flex absolute rounded-full invisible group-hover:visible h-6 w-6 items-center justify-center left-[20px] z-50">
+                  <PlayIcon isPlaying={false} className="text-white w-4" />
+                </button>
+              </div>
+            )
+
           }
-          <BaseControl
-            clickHandler={console.log("")}
-            className="hidden bg-transparent group-hover:flex w-4 h-4"
-          >
-            <PlayIcon isPlaying={false} className="text-white w-4" />
-          </BaseControl>
           <img
             src={imgSrc}
             className="h-10 w-10 rounded"

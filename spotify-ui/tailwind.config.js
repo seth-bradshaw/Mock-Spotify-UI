@@ -21,37 +21,16 @@ module.exports = {
           '0%': {
             transform: 'translateX(0)',
           },
-          '6.5%': {
-            transform: 'translateX(-30px) rotateY(-9deg)',
+          '50%': {
+            transform: 'translateX(-100%)'
           },
-          '12.5': {
-            transform: 'translateX(-30px) rotateY(-9deg)',
-          },
-          '18.5%': {
-            transform: 'translateX(0px) rotateY(7deg)',
-          },
-          '24.5%': {
-            transform: 'translateX(0px) rotateY(7deg)',
-          },
-          '31.5%': {
-            transform: 'translateX(-30px) rotateY(-5deg)',
-          },
-          '37.5%': {
-            transform: 'translateX(-30px) rotateY(-5deg)',
-          },
-          '43.5%': {
-            transform: 'translateX(0px) rotateY(3deg)',
-          },
-          '48.5%': {
-            transform: 'translateX(0px) rotateY(3deg)',
-          },
-          '55%': {
+          '100%': {
             transform: 'translateX(0)',
-          }
+          },
         }
       },
       animation: {
-        'scroll-text-linear': 'scroll-text-linear 40s 2'
+      'scroll-text-linear': 'scroll-text-linear 20s 2'
       }
     },
   },
