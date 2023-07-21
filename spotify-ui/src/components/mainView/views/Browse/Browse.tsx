@@ -25,7 +25,7 @@ export default function Home({}: Props) {
         <div className="h-full w-full">
             {categories.map((c) => {
               return (
-                <Link to={'playlist'} onClick={() => handleCategoryClick(c.id)}>
+                <Link to={'playlist'} onClick={() => handleCategoryClick(c.id)} className='color-red-600'>
                   {c.name}
                 </Link>
               )

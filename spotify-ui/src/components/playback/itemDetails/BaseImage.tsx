@@ -8,7 +8,7 @@ interface Props {
 export default function BaseImage({imageUrl='', className='', children}: PropsWithChildren<Props>) {
   // TODO: create skeleton for empty track
   return imageUrl?.length ? (
-    <div className="">
+    <div className="aspect-square flex justify-center">
       <img src={imageUrl} className={className} />
       {children}
     </div>
