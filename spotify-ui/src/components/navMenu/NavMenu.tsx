@@ -1,47 +1,53 @@
-import React, { PropsWithChildren, ReactElement } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import Resize from './Resize'
 import { Link } from 'react-router-dom'
-import PlaylistSection from './PlaylistSection'
+import Library from './Library/Library'
+import LibraryContextProvider from './Library/context/LibraryContext'
 
 type Props = {}
 
 type LinkProps = {
   label: string;
   href: string;
+  expanded: boolean;
 }
 
-const MainLink = ({ label, children, href }: PropsWithChildren<LinkProps>) => {
+const MainLink = ({ label, children, href, expanded }: PropsWithChildren<LinkProps>) => {
   return (
-    <Link to={href} className="hover:text-white flex gap-2 items-center delay-100 ease-in-out">
-      <div className="w-5 flex justify-center">
+    <Link to={href} className="hover:text-white flex gap-4 items-center delay-100 ease-in-out">
+      <div className="w-5 h-5 flex justify-center items-center">
         {children}
       </div>
-      <p>{label}</p>
+      {
+        expanded && (
+          <p>{label}</p>
+        )
+      }
     </Link>
   )
 }
 
 export default function Menu({}: Props) {
+  const [expanded, setExpanded] = useState(true);
+
+  const toggleMenu = () => {
+    setExpanded(!expanded)
+  }
+
   return (
-    <div className="col-span-1 flex flex-col relative bg-black gap-3 p-4 text-spotify-gray-300">
-      <div className="text-white flex items-center gap-2 mb-4">
-        <i className="fa-brands fa-spotify fa-2xl"></i>
-        <h2 className="text-2xl">Spotify</h2>
-      </div>
-      <div className="w-full text-lg flex flex-col gap-2 mb-4">
-        <MainLink href="" label="Home">
-          <i className="fa-solid fa-house"></i> 
+    <div className={`col-span-1 flex flex-col relative bg-black gap-3 p-4 text-spotify-gray-300 overflow-hidden ${!expanded ? 'justify-center items-center p-2' : ''}`}>
+      <div className={`w-full text-xl flex flex-col justify-center gap-4 mb-4 bg-spotify-gray-800 rounded-lg p-4 h-32 ${!expanded ? 'items-center' : ''}`}>
+        <MainLink href="" label="Home" expanded={expanded}>
+          <i className="fa-solid fa-house fa-lg"></i> 
         </MainLink>
-        <MainLink href="search" label="Search">
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </MainLink>
-        <MainLink href="library" label="Library">
-          <i className="fa-solid fa-bookmark"></i>
+        <MainLink href="search" label="Search" expanded={expanded}>
+          <i className="fa-solid fa-magnifying-glass fa-lg"></i>
         </MainLink>
       </div>
-      <hr className="border-spotify-gray-300"></hr>
-      <PlaylistSection />
-      <Resize />
+      <LibraryContextProvider>
+        <Library expanded={expanded} toggleMenu={toggleMenu} />
+      </LibraryContextProvider>
+      <Resize expanded={expanded} toggleMenu={toggleMenu} />
     </div>
   )
 }

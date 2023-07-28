@@ -325,8 +325,9 @@ export const fetchPrimaryColorFromImage = async (img_url:string) => {
   return rgb;
 }
 
-export const fetchBrowseCategories = async (params?:ParamOpts) => {
-  const response = await axios.get(`${CATEGORY_URL}/all`, { headers: getAuthHeader() })
+export const fetchBrowseCategories = async (offset?: number, limit?: number) => {
+  const paramsToUse = getOptionalParams([{offset}, {limit}]);
+  const response = await axios.get(`${CATEGORY_URL}/all${paramsToUse}`, { headers: getAuthHeader() })
     .then(res => res.data)
     .catch(err => err);
 
@@ -334,8 +335,18 @@ export const fetchBrowseCategories = async (params?:ParamOpts) => {
 }
 
 
-export const fetchCategoryPlaylists = async (category_id:string,params?:ParamOpts) => {
-  const response = await axios.get(`${CATEGORY_URL}/category/items/${category_id}`, { headers: getAuthHeader() })
+export const fetchCategoryPlaylists = async (category_id:string, offset?:number, limit?:number) => {
+  const paramsToUse = getOptionalParams([{offset}, {limit}]);
+  const response = await axios.get(`${CATEGORY_URL}/category/items/${category_id}${paramsToUse}`, { headers: getAuthHeader() })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+export const fetchUserSavedAlbums = async (params:Array<ParamOpts>) => {
+  const paramsToUse = getOptionalParams(params);
+  const response = await axios.get(`${PROFILE_URL}/followed/albums${paramsToUse}`, { headers: getAuthHeader() })
     .then(res => res.data)
     .catch(err => err);
 

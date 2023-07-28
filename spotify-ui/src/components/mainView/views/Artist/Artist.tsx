@@ -6,7 +6,7 @@ import {
 } from "../../../../store/slices/artist/artist.selectors";
 import useIsFollowingArtist from "../../../../hooks/artist/useIsFollowingArtist";
 import fetchArtistDetails from "../../../../store/slices/artist/fetchArtistDetails";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { fetchPrimaryColorFromImage, resumePlayer, RgbObject } from "../../../../services";
 import fetchArtistTopTracks from "../../../../store/slices/artist/fetchArtistTopTracks";
 import fetchArtistAlbums from "../../../../store/slices/artist/fetchArtistAlbums";
@@ -37,6 +37,7 @@ export default function Artist({}: Props) {
   const isFollowing = useIsFollowingArtist();
   const [albums, setAlbums] = useState([]);
   const [topItems, setTopItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchArtistDetails(artistid));
@@ -63,6 +64,9 @@ export default function Artist({}: Props) {
     setBg(`rgb(${r}, ${g}, ${b})`);
   };
 
+  const handleNavigate = (url: string) => {
+    navigate(`/home/${url}`);
+  }
 
   const playArtist = async () => {
     await resumePlayer({ context_uri: artist.uri, uris: [] })
@@ -114,7 +118,7 @@ export default function Artist({}: Props) {
                 imgSrc={album.images[1].url}
                 label={album.name}
                 description={formatAlbumDescription(album)}
-                handleRedirect={() => console.log("redirect card clicked")}
+                handleRedirect={() => handleNavigate(`playlists/${album.id}`)}
                 spotify_uri={album.uri}
               />
             ))}

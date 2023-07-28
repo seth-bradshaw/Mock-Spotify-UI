@@ -37,6 +37,7 @@ export default function Playlist({}: Props) {
   const playPlaylist = async () => {
     await resumePlayer({ context_uri: uri });
   };
+
   return (
     <ViewWrapper isLoading={false}>
       <HeaderSection
@@ -62,6 +63,7 @@ export default function Playlist({}: Props) {
                 duration={track.duration_ms}
                 rank={idx + 1}
                 explicit={track.explicit}
+                artists={track.artists}
               />
             ))}
           </CardRow>

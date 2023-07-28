@@ -7,8 +7,6 @@ import { transferDevice } from "../../../services";
 
 export const PlaybackContext = createContext({});
 
-
-
 export default function PlaybackContextProvider({ children }: PropsWithChildren) {
   // TODO define Player type
   const [player, setPlayer] = useState<AnyObj>();
@@ -33,7 +31,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
         ({ device_id }: PlaybackEventCallback) => {
           setReady(true);
           setDeviceId(device_id)
-          // transferDevice(device_id);
+          transferDevice(device_id);
           // TODO save device_id to redux and maybe move transfer call?
         }
       );
@@ -41,7 +39,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
       player.addListener(
         "not_ready",
         ({ device_id }: PlaybackEventCallback) => {
-          setDeviceId(device_id)
+          // setDeviceId(device_id)
           setReady(false);
         }
       );

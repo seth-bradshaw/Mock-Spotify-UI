@@ -17,8 +17,8 @@ const initialState: PlaylistState = {
   error: null,
 };
 
-export const trackSlice = createSlice({
-  name: "track",
+export const playlistSlice = createSlice({
+  name: "playlist",
   initialState,
   reducers: {
     updateActivePlaylist: (state, action) => {
@@ -80,6 +80,6 @@ export const trackSlice = createSlice({
   },
 });
 
-export const { updateActivePlaylist } = trackSlice.actions;
+export const { updateActivePlaylist } = playlistSlice.actions;
 
-export default trackSlice.reducer;
+export default playlistSlice.reducer;

@@ -15,7 +15,7 @@ export default function SearchHeader({}: Props) {
   };
 
   return (
-    <div className="w-full fixed h-48 bg-transparent flex flex-col top-0 z-[9999]">
+    <div className="w-full fixed h-30 bg-transparent flex flex-col top-0 z-[9999]">
       <div className="w-full h-16 flex items-center relative">
         <label className="relative block w-96">
           <span className="sr-only">Search</span>

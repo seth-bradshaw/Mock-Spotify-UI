@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../..";
 
 // TODO create complete app state type
-const selectCategory = (state: RootState) => state.category;
+const selectCategories = (state: RootState) => state.category;
 
-export const getCategories = createSelector(selectCategory, ({ categories }) => categories);
+export const getCategories = createSelector(selectCategories, ({ categories }) => categories);
+
+export const getCategoriesPagination = createSelector(selectCategories, ({offset, total}) => ({offset, total}));
