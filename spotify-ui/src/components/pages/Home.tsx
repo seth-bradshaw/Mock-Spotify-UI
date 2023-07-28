@@ -9,6 +9,7 @@ import PlaybackSection from '../playback'
 import './home.css'
 import { fetchSavedPlaylists } from '../../store/slices/playlist'
 import fetchCategories from '../../store/slices/categories/fetchCategories'
+import fetchSavedAlbums from '../../store/slices/album/fetchSavedAlbums'
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function Home() {
     dispatch(fetchFollowedArtists({}));
     dispatch(fetchSavedTracks({}));
     dispatch(fetchSavedPlaylists({}));
-    dispatch(fetchCategories({}))
+    dispatch(fetchSavedAlbums({}))
   }, [])
   
   return (

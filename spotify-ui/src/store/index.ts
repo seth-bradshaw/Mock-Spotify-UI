@@ -2,8 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import trackReducer from './slices/track';
 import artistReducer from './slices/artist';
 import userReducer from './slices/user';
-import playlistReducer from './slices/playlist'
-import categoryReducer from './slices/categories/categories'
+import playlistReducer from './slices/playlist';
+import categoryReducer from './slices/categories/categories';
+import albumReducer from './slices/album/album';
 
 const store = configureStore({ 
   reducer: { 
@@ -11,7 +12,8 @@ const store = configureStore({
     artist: artistReducer,
     user: userReducer,
     playlists: playlistReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    album: albumReducer
   }
 })
 

@@ -2,12 +2,13 @@ import React, { PropsWithChildren } from 'react'
 import StickyHeader from './StickyHeader'
 
 interface Props {
-  isLoading: boolean
+  isLoading: boolean,
+  className?: string
 }
 
-export default function ViewWrapper({ isLoading, children}: PropsWithChildren<Props>) {
+export default function ViewWrapper({ isLoading, className, children}: PropsWithChildren<Props>) {
   return !isLoading ? (
-    <div className="h-full w-full">
+    <div className={`h-full w-full ${className}`}>
       {children}
     </div>
   ) : <p className="text-spotify-green-400 text-xl">Loading</p>

@@ -21,10 +21,13 @@ const initialState = {
     error: null
 }
 
-const injectPlaylists = (categories, { categoryId, items }) => {
+const injectPlaylists = (categories, { categoryId, items, offset, limit, total }) => {
     categories.find((cat,idx) => {
         if (cat.id ===  categoryId)  {
-            categories[idx].items = items
+            categories[idx].items = categories[idx].items ? categories[idx].items.concat(items) : items
+            categories[idx].offset = offset + limit;
+            categories[idx].limit = limit;
+            categories[idx].total = total;
             return true;
         }
         return false;
@@ -44,7 +47,9 @@ const categorySlice = createSlice({
         });
 
         builder.addCase(fetchCategories.fulfilled, (state, { payload }: PayloadAction<any>) => {
-            state.categories = payload.items
+            state.categories = state.categories.concat(payload.items)
+            state.offset = payload.offset + payload.limit;
+            state.total = payload.total
             state.status = StatusOpts.Idle
         })
 

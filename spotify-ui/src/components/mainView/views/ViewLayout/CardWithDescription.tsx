@@ -40,7 +40,7 @@ export default function CardWithDescription({ imgSrc, imgSize, label, descriptio
         </BaseImage>
       <div className='mb-5 h-12'>
         <p className='text-white truncate'>{label}</p>
-        <p className='text-spotify-gray-300'>{description}</p>
+        <p className='text-spotify-gray-300 truncate'>{description}</p>
       </div>
     </div>
   )
