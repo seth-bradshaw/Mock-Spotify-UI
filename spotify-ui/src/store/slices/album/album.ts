@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SavedTracksRes } from "../../../services/trackRes.types";
 import fetchSavedAlbums from "./fetchSavedAlbums";
 import { AlbumState } from "./types";
+import fetchAlbumDetails from "./fetchAlbumDetails";
+import fetchAlbumTracks from "./fetchAlbumTracks";
 
 const initialState: AlbumState = {
   savedAlbums: {
@@ -44,6 +46,42 @@ export const albumSlice = createSlice({
       state.status = "idle";
     });
 
+    builder.addCase(fetchAlbumDetails.pending, (state) => {
+      state.status = "loading";
+      state.error = null;
+    });
+
+    builder.addCase(fetchAlbumDetails.fulfilled, (state, { payload }: PayloadAction<any>) => {
+      state.activeAlbum = {
+        ...payload,
+        tracks: {
+          ...payload.tracks,
+          offset: payload.tracks.offset + payload.tracks.items.length
+        }
+      };
+      state.status = "idle";
+    });
+
+    builder.addCase(fetchAlbumDetails.rejected, (state, { payload }) => {
+      if (payload) state.error = payload;
+      state.status = "idle";
+    });
+
+    builder.addCase(fetchAlbumTracks.pending, (state) => {
+      state.status = "loading";
+      state.error = null;
+    });
+
+    builder.addCase(fetchAlbumTracks.fulfilled, (state, { payload }: PayloadAction<any>) => {
+      state.activeAlbum.tracks.items = state.activeAlbum.tracks.items.concat(payload.items);
+      state.activeAlbum.tracks.offset = state.activeAlbum.tracks.offset + payload.items.length;
+      state.status = "idle";
+    });
+
+    builder.addCase(fetchAlbumTracks.rejected, (state, { payload }) => {
+      if (payload) state.error = payload;
+      state.status = "idle";
+    });
   },
 });
 
