@@ -9,9 +9,9 @@ type Props = {
 export default function ActionBar({ handleClickPlay, children }: PropsWithChildren<Props>) {
   return (
         <div className="w-full p-4 flex items-center gap-6">
-          <BaseControl clickHandler={handleClickPlay} className="bg-spotify-green-400 h-14 w-14">
+          <BaseControl clickHandler={handleClickPlay} className="bg-spotify-green-400 h-20 w-20">
             {/* TODO update this to ui reducer state once that's set up */}
-            <PlayIcon isPlaying={false} />
+            <PlayIcon isPlaying={false} className='fa-2xl' />
           </BaseControl>
           {children}
         </div>

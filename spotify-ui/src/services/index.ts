@@ -16,7 +16,8 @@ import {
   RESUME_PLAYER,
   PAUSE_PLAYER,
   ARTISTS_URL,
-  CATEGORY_URL
+  CATEGORY_URL,
+  ALBUM_URL
 } from "../constants/endpoints";
 import getAuthHeader from "./getAuthHeader";
 import { safeParse } from "../utils";
@@ -347,6 +348,24 @@ export const fetchCategoryPlaylists = async (category_id:string, offset?:number,
 export const fetchUserSavedAlbums = async (params:Array<ParamOpts>) => {
   const paramsToUse = getOptionalParams(params);
   const response = await axios.get(`${PROFILE_URL}/followed/albums${paramsToUse}`, { headers: getAuthHeader() })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+export const fetchAlbumDetails = async (id: string, params?:Array<ParamOpts>) => {
+  const paramsToUse = getOptionalParams(params ?? []);
+  const response = await axios.get(`${ALBUM_URL}/${id}/details${paramsToUse}`, { headers: getAuthHeader() })
+    .then(res => res.data)
+    .catch(err => err);
+
+  return response;
+}
+
+export const fetchAlbumItems = async (id: string, params:Array<ParamOpts>) => {
+  const paramsToUse = getOptionalParams(params);
+  const response = await axios.get(`${ALBUM_URL}/${id}/tracks${paramsToUse}`, { headers: getAuthHeader() })
     .then(res => res.data)
     .catch(err => err);
 

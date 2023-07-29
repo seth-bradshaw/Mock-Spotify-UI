@@ -6,6 +6,7 @@ import Search from './components/mainView/views/Search/Search';
 import Browse from './components/mainView/views/Home/Home';
 import { Home, Landing } from './components/pages'; 
 import Genre from './components/mainView/views/Genre/Genre';
+import Album from './components/mainView/views/Album/Album';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
             <Route path='artist/:artistid'  element={<Artist />} />
             <Route path='playlist/:playlistid' element={<Playlist />} />
             <Route path='genre/:categoryid' element={<Genre />} />
-            <Route path='album/:albumid' element={<div>Album</div>} />
+            <Route path='album/:albumid' element={<Album />} />
           </Route>
         </Route>
       </Routes>
