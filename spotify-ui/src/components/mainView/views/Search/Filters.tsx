@@ -15,14 +15,14 @@ export default function Filters({}: Props) {
 
   return (
     results && query && (
-      <div className="h-12 w-full flex gap-2 pl-5">
+      <div className="h-12 w-full flex gap-2 pl-5 mt-5 -left-28 absolute">
         {filters.map((filter) => (
           <div
-            className={`p-2 py-1 ${
+            className={`p-3 py-1 ${
               type === filter.type
                 ? "bg-white text-black"
                 : "bg-spotify-gray-650 text-white hover:bg-spotify-gray-600"
-            } flex items-center text-sm rounded-full h-min hover:cursor-pointer`}
+            } flex items-center text-md rounded-full h-min hover:cursor-pointer`}
             onClick={() => applyFilter(filter.type)}
           >
             {filter.displayName}

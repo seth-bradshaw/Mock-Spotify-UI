@@ -46,7 +46,7 @@ export default function TrackCard({
               </p>
 
               <BaseControl
-                clickHandler={console.log("")}
+                clickHandler={() => {}}
                 className="hidden bg-transparent group-hover:flex w-4 h-4"
               >
                 <PlayIcon isPlaying={false} className="text-white w-4" />

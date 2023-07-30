@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useNavigate } from 'react-router';
 import View from './components/mainView';
 import Artist from './components/mainView/views/Artist/Artist';
 import Playlist from './components/mainView/views/Playlist';
@@ -7,8 +7,22 @@ import Browse from './components/mainView/views/Home/Home';
 import { Home, Landing } from './components/pages'; 
 import Genre from './components/mainView/views/Genre/Genre';
 import Album from './components/mainView/views/Album/Album';
+import ModalPortal from './components/modals/ModalPortal';
+import { useEffect } from 'react';
+import { safeParse } from './utils';
+import Cookies from 'js-cookie';
 
 function App() {
+  const parsedToken = safeParse(Cookies.get('spotify_access_token'), {})
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (parsedToken?.access_token) {
+      navigate('/home')
+    } else {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <div className='h-full'>
@@ -25,6 +39,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <ModalPortal />
     </div>
   );
 }

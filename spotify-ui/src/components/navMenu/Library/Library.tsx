@@ -20,7 +20,7 @@ export default function Library({ expanded, toggleMenu }: Props) {
         { expanded && <p>Your Library</p> }
       </div>
       { expanded && <Filters /> }
-      <div className={`relative flex flex-col gap-2 overflow-x-hidden text-ellipsis bg-spotify-gray-800 rounded-lg w-full ${expanded ? 'p-4' : 'items-center justify-center' }overflow-y-scroll h-full`}>
+      <div className={`relative flex flex-col gap-2 overflow-x-hidden text-ellipsis bg-spotify-gray-800 rounded-lg w-full ${expanded ? 'p-4' : 'items-center justify-center' } overflow-y-scroll h-full`}>
         {results && results.map((result) => <LibraryItem item={result} expanded={expanded} /> )}
       </div>
     </div>

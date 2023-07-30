@@ -8,7 +8,7 @@ export default function Browse({}: Props) {
   const { results, query } = useSearchContext();
 
   return (!results || !query) && (
-    <div className="px-6 my-20">
+    <div className="px-6 my-20 h-screen">
       <SearchCategories />
     </div>
   )

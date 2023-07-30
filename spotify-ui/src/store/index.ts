@@ -5,6 +5,7 @@ import userReducer from './slices/user';
 import playlistReducer from './slices/playlist';
 import categoryReducer from './slices/categories/categories';
 import albumReducer from './slices/album/album';
+import uiReducer from './slices/ui/ui'
 
 const store = configureStore({ 
   reducer: { 
@@ -13,7 +14,8 @@ const store = configureStore({
     user: userReducer,
     playlists: playlistReducer,
     category: categoryReducer,
-    album: albumReducer
+    album: albumReducer,
+    ui: uiReducer
   }
 })
 

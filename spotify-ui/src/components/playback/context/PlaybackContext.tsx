@@ -3,7 +3,8 @@ import { safeParse } from "../../../utils";
 import Cookies from "js-cookie";
 import initPlaybackSDK from "../sdk";
 import { AnyObj, PlaybackEventCallback } from "./types";
-import { transferDevice } from "../../../services";
+import { useDispatch } from "../../../store/hooks";
+import { updateDeviceId } from "../../../store/slices/ui/ui";
 
 export const PlaybackContext = createContext({});
 
@@ -12,6 +13,7 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
   const [player, setPlayer] = useState<AnyObj>();
   const [ready, setReady] = useState<Boolean>(false);
   const [deviceId, setDeviceId] = useState<string>('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const token = safeParse(Cookies.get("spotify_access_token"))?.access_token;
@@ -31,24 +33,23 @@ export default function PlaybackContextProvider({ children }: PropsWithChildren)
         ({ device_id }: PlaybackEventCallback) => {
           setReady(true);
           setDeviceId(device_id)
-          transferDevice(device_id);
-          // TODO save device_id to redux and maybe move transfer call?
+          dispatch(updateDeviceId(device_id))
         }
       );
 
       player.addListener(
         "not_ready",
         ({ device_id }: PlaybackEventCallback) => {
-          // setDeviceId(device_id)
+          setDeviceId(device_id)
           setReady(false);
+          dispatch(updateDeviceId(device_id))
         }
       );
 
       player.connect().then((status: boolean) => console.log(`Status of connection ${status}`));
 
-      // TODO update name
       player
-        .setName("mySpotify")
+        .setName("groover")
         .then(() => console.log("Device name changed!"));
     });
   }, []);

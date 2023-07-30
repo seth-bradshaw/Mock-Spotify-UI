@@ -1,10 +1,16 @@
-import React from 'react'
-import { loginWithSpotify } from '../../services'
+import React, { useEffect } from 'react'
+import { useDispatch } from '../../store/hooks'
+import { changeModal } from '../../store/slices/ui/ui';
 
 export default function Landing() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeModal('login'))
+  }, [])
+
   return (
-    <div>
-      <button onClick={loginWithSpotify}>Login</button>
+    <div className="bg-gradient-to-b from-spotify-gray-600 to-black h-screen w-full">
     </div>
   )
 }

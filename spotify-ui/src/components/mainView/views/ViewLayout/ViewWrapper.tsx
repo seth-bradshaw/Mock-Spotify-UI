@@ -8,7 +8,7 @@ interface Props {
 
 export default function ViewWrapper({ isLoading, className, children}: PropsWithChildren<Props>) {
   return !isLoading ? (
-    <div className={`h-full w-full ${className}`}>
+    <div className={`h-full min-h-screen w-full ${className}`}>
       {children}
     </div>
   ) : <p className="text-spotify-green-400 text-xl">Loading</p>
