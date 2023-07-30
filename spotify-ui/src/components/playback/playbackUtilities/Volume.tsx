@@ -1,10 +1,7 @@
-import React, { FormEvent, ReactElement, useEffect, useState } from "react";
-import BufferVolumeService from "./BufferVolumeService";
+import { FormEvent, ReactElement, useEffect, useState } from "react";
 import BaseSlider from "../../common/BaseSlider";
 import { usePlaybackContext } from "../context";
 import VolumeIcon from "./VolumeIcon";
-
-const BufferVolumeChange = new BufferVolumeService();
 
 interface Props {}
 
@@ -26,17 +23,23 @@ export default function Volume({}: Props): ReactElement {
   const updateVolume = (e: FormEvent) => {
     const volume_percent = +(e.target as HTMLInputElement).value;
     setVolume(volume_percent);
-    BufferVolumeChange.interceptEvent({ type: e.type, volume_percent });
+    player.setVolume(volume_percent / 100).then(() => {
+      console.log('volume updated')
+    })
   };
 
   const toggleMute = () => {
     // * spotify web API or SDK don't support mute, so we need to manually do it
     if (volume === 0) {
-      BufferVolumeChange.callUpdateVolume(prevVolume);
+      player.setVolume(prevVolume / 100).then(() => {
+        console.log('volume updated')
+      })
       setVolume(prevVolume)
       setPrevVolume(0)
     } else {
-      BufferVolumeChange.callUpdateVolume(0);
+      player.setVolume(0).then(() => {
+        console.log('volume updated')
+      })
       setPrevVolume(volume);
       setVolume(0);
     }
