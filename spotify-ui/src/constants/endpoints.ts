@@ -1,5 +1,4 @@
-// TODO update this with env file to determine base URL
-const mockSpotifyBaseURL = 'http://localhost:8080';
+const mockSpotifyBaseURL = process.env.REACT_APP_API_BASE_URL;
 
 // * AUTH ENDPOINTS
 const authURL = `${mockSpotifyBaseURL}/auth`;
