@@ -286,7 +286,7 @@ export const extractId = (uri: string | undefined) => uri ? uri.split(':').at(-1
 export const getArtistDetails = async (id: string) => {
   const headers = getAuthHeader();
   
-  const response = await axios.get(`${ARTISTS_URL + '/' + id}`, { headers })
+  const response = await axios.get(`${ARTISTS_URL + '/' + id + '/details'}`, { headers })
     .then(res => res.data)
     .catch(err => err);
 
@@ -356,7 +356,7 @@ export const fetchUserSavedAlbums = async (params:Array<ParamOpts>) => {
 
 export const fetchAlbumDetails = async (id: string, params?:Array<ParamOpts>) => {
   const paramsToUse = getOptionalParams(params ?? []);
-  const response = await axios.get(`${ALBUM_URL}/${id}/details${paramsToUse}`, { headers: getAuthHeader() })
+  const response = await axios.get(`${ALBUM_URL}/details/${id}${paramsToUse}`, { headers: getAuthHeader() })
     .then(res => res.data)
     .catch(err => err);
 
