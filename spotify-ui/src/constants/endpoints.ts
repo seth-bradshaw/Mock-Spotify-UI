@@ -1,4 +1,5 @@
 const mockSpotifyBaseURL = process.env.REACT_APP_API_BASE_URL;
+console.log('base url', mockSpotifyBaseURL)
 
 // * AUTH ENDPOINTS
 const authURL = `${mockSpotifyBaseURL}/auth`;
